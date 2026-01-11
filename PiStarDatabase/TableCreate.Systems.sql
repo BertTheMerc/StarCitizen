@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Systems]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	SystemName VARCHAR(40) NOT NULL
+)
