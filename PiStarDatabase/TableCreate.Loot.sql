@@ -4,6 +4,6 @@
     ItemTypeNameId INT,
     SubItemTypeNameId INT,
 	ItemName VARCHAR(40),
-    Size float,
+    SCUSize INT,
     CargoSaleValue INT,
 )

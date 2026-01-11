@@ -10,7 +10,7 @@ public partial class Program
 
         builder.Services.AddSingleton<Func<SqlConnection>>(_ =>
         {
-            var connString = builder.Configuration["StarCitizenDatabase:ConnectionString"]!;
+            var connString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
             return () => new SqlConnection(connString);
         });
 

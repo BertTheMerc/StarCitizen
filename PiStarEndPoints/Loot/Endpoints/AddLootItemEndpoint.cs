@@ -1,10 +1,10 @@
 ﻿using Dapper;
 using FastEndpoints;
 using Microsoft.Data.SqlClient;
-using SCAPI.Loot.DTO;
+using PiStarDTO;
 using System.Data;
 
-namespace SCAPI.Loot.Endpoints
+namespace PiStarEndpoints.Loot.Endpoints
 {
     public class AddLootItemEndpoint : Endpoint<LootItemDTO, int>
     {
@@ -30,7 +30,7 @@ namespace SCAPI.Loot.Endpoints
                     item.ItemTypeNameId,
                     item.SubItemTypeNameId,
                     item.ItemName,
-                    item.Size,
+                    item.SCUSize,
                     item.CargoSaleValue
                 },
                 commandType: CommandType.StoredProcedure);

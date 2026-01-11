@@ -1,10 +1,10 @@
 ﻿using Dapper;
 using FastEndpoints;
 using Microsoft.Data.SqlClient;
-using SCAPI.Loot.DTO;
+using PiStarDTO;
 using System.Data;
 
-namespace SCAPI.Loot.Endpoints
+namespace PiStarEndpoints.Loot.Endpoints
 {
     public class GetLootSubItemTypeEndpoint : Endpoint<EmptyRequest, List<LootSubItemTypeDTO>>
     {
