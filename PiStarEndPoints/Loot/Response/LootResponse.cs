@@ -1,9 +1,9 @@
-﻿using SCAPI.Loot.DTO;
+﻿using PiStarDTO;
 
-namespace SCAPI.Loot.Response
+namespace PiStarEndpoints.Loot.Response
 {
     public class LootListResponse
     {
-        public List<LootItemDTO> Loot { get; set; }
+        public List<LootItemDTO> Loot { get; set; } = new List<LootItemDTO>();
     }
 }

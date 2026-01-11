@@ -14,7 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include=".env\" />
     <Folder Include="Loot\Requests\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PiStarDTO\PiStarDTO.csproj" />
   </ItemGroup>
 
 </Project>

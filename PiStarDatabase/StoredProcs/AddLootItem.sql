@@ -9,7 +9,7 @@ BEGIN
     SET NOCOUNT ON;
 
     INSERT INTO dbo.Loot
-        (ItemTypeNameId, SubItemTypeNameId, ItemName, Size, CargoSaleValue)
+        (ItemTypeNameId, SubItemTypeNameId, ItemName, SCUSize, CargoSaleValue)
     VALUES
         (@ItemTypeNameId, @SubItemTypeNameId, @ItemName, @Size, @CargoSaleValue);
 

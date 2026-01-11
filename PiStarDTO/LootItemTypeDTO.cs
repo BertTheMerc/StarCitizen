@@ -1,4 +1,4 @@
-﻿namespace SCAPI.Loot.DTO
+﻿namespace PiStarDTO
 {
     public class LootItemTypeDTO
     {
