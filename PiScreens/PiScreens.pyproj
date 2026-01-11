@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{b21d4d00-3dad-48f8-b0da-9919322cb6e3}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>main.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
+    <Name>PiScreens</Name>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Domain\Fleet.py" />
+    <Compile Include="Domain\LootResale.py" />
+    <Compile Include="Domain\MultiListBase.py" />
+    <Compile Include="Domain\RepairOutposts.py" />
+    <Compile Include="Domain\ShipComponent.py" />
+    <Compile Include="Domain\ShipDetails.py" />
+    <Compile Include="Domain\TradeRoute.py" />
+    <Compile Include="libs\Helper.py" />
+    <Compile Include="libs\Repo.py" />
+    <Compile Include="libs\SlideShow.py" />
+    <Compile Include="libs\Timer.py" />
+    <Compile Include="libs\TimerType.py" />
+    <Compile Include="main.py" />
+    <Compile Include="mainOrig.py" />
+    <Compile Include="Screens\ClaimTimers.py" />
+    <Compile Include="Screens\Clocks.py" />
+    <Compile Include="Screens\LootComponents.py" />
+    <Compile Include="Screens\RepairOutposts.py" />
+    <Compile Include="Screens\LootPrices - Copy.py" />
+    <Compile Include="Screens\MultiList.py" />
+    <Compile Include="Screens\LootPrices.py" />
+    <Compile Include="Screens\MFDs.py" />
+    <Compile Include="Screens\ScreenTemplate.py" />
+    <Compile Include="Screens\ShipComponents.py" />
+    <Compile Include="Screens\TradeRoutes.py" />
+    <Compile Include="Screens\TradeRoutes_Info.py" />
+    <Compile Include="test.py" />
+    <Compile Include="tests\test_fleet.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Database\CreateDB.sql" />
+    <Content Include="Database\CreateLootResale.sql" />
+    <Content Include="Database\CreateOutposts.sql" />
+    <Content Include="Database\CreateShipComponents.sql" />
+    <Content Include="Database\CreateShips.sql" />
+    <Content Include="Database\CreateTradeRoute.sql" />
+    <Content Include="Database\SeedLootResale.sql" />
+    <Content Include="Database\SeedLootResaleTypes.sql" />
+    <Content Include="Database\SeedOutposts.sql" />
+    <Content Include="Database\SeedShipComponents.sql" />
+    <Content Include="Database\SeedShips.sql" />
+    <Content Include="Database\SeedTradeRoutes.sql" />
+    <Content Include="Database\ViewOutposts.sql" />
+    <Content Include="Domain\__pycache__\Fleet.cpython-313.pyc" />
+    <Content Include="Domain\__pycache__\LootResale.cpython-313.pyc" />
+    <Content Include="Domain\__pycache__\RepairOutposts.cpython-313.pyc" />
+    <Content Include="Domain\__pycache__\ShipComponent.cpython-313.pyc" />
+    <Content Include="Domain\__pycache__\ShipDetails.cpython-313.pyc" />
+    <Content Include="Domain\__pycache__\TradeRoute.cpython-313.pyc" />
+    <Content Include="images\button.png" />
+    <Content Include="images\Frame.pdn" />
+    <Content Include="images\Frame.png" />
+    <Content Include="images\FrameLeft.pdn" />
+    <Content Include="images\FrameLeft.png" />
+    <Content Include="images\FrameLeft2.pdn" />
+    <Content Include="images\FrameRight.pdn" />
+    <Content Include="images\FrameRight.png" />
+    <Content Include="images\FrameRight2.pdn" />
+    <Content Include="images\PiStarLoading.pdn" />
+    <Content Include="images\PiStarLoading.png" />
+    <Content Include="images\Splash.pdn" />
+    <Content Include="images\Splash.png" />
+    <Content Include="packages" />
+    <Content Include="publish.cmd" />
+    <Content Include="r.cmd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Database\" />
+    <Folder Include="Domain\" />
+    <Folder Include="Domain\__pycache__\" />
+    <Folder Include="images" />
+    <Folder Include="libs" />
+    <Folder Include="tests\" />
+    <Folder Include="Screens" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
