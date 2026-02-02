@@ -1,0 +1,284 @@
+﻿@page "/lootables"
+@rendermode InteractiveServer
+
+@using Microsoft.AspNetCore.Components
+@using ChapterAndVerse.Domain
+@inject ChapterAndVerse.Domain.LootablesAPI Api
+@inject NavigationManager Nav
+
+<div class="h1">Lootables</div>
+
+@if (lootItems is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="grid">
+        <div class="panel">
+            <div class="controls">
+
+                <div class="field">
+                    <label>Search</label>
+                    <input class="input"
+                           @bind="QBacking"
+                           @bind:event="oninput"
+                           placeholder="Name / type / subtype…" />
+
+                    <label>Item Type</label>
+                    <select class="select" @bind="ItemTypeUI">
+                        <option value="">All</option>
+                        @foreach (var t in ItemTypeOptions)
+                        {
+                            <option value="@t">@t</option>
+                        }
+                    </select>
+
+                    <label>Item Sub Type</label>
+                    <select class="select" @bind="ItemSubTypeUI">
+                        <option value="">All</option>
+                        @foreach (var st in SubTypeOptions)
+                        {
+                            <option value="@st">@st</option>
+                        }
+                    </select>
+
+                    <label>Sort</label>
+                    <select class="select" @bind="SortUI">
+                        <option value="itemtype">Item Type</option>
+                        <option value="subitemtype">Sub Item Type</option>
+                        <option value="return">Return</option>
+                        <option value="name">Name</option>
+                        <option value="sell">Sell value</option>
+                        <option value="size">Size</option>
+                    </select>
+                    <label>Order</label>
+                    <select class="select" @bind="DescUI">
+                        <option value="no">Asc</option>
+                        <option value="yes">Desc</option>
+                    </select>
+
+                </div>
+
+                <div class="row">
+                    <button type="button" class="btn fixed-width" @onclick="ApplyToUrl">Apply</button>
+                    <button type="button" class="btn secondary fixed-width" @onclick="Reset">Reset</button>
+                </div>
+
+                <div class="kpi">
+                    <span class="badge">Results: @Visible.Count</span>
+                    <span class="badge">Total: @lootItems.Count</span>
+                </div>
+
+                <!--
+                <hr style="border:0;border-top:1px solid rgba(210,230,255,.10);margin:12px 0;" />
+
+                <div class="field">
+                    <label>Quick filter (client-side)</label>
+                    <input class="input"
+                           @bind="QuickBacking"
+                           @bind:event="oninput"
+                           placeholder="Instantly narrow visible rows…" />
+                </div>
+
+                <div class="badge dim">Tip: quick filter doesn’t change URL; Apply does.</div>
+                -->
+            </div>
+        </div>
+
+        <div class="panel">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Item Type</th>
+                        <th>Sub Type</th>
+                        <th>Name</th>
+                        <th aria-label="Amount of uSCU the item takes">Size</th>
+                        <th aria-label="Amount the item sells for at cargo centers">Sell value</th>
+                        <th>Return</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var lootitem in Visible)
+                    {
+                        <tr>
+                            <td>@lootitem.ItemTypeName</td>
+                            <td>@lootitem.SubItemTypeName</td>
+                            <td>@lootitem.ItemName</td>
+                            <td>@lootitem.SCUSize</td>
+                            <td>@lootitem.CargoSaleValue</td>
+                            <td>@lootitem.Return</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            @if (Visible.Count == 0)
+            {
+                <p class="p" style="margin-top:12px;">No results. Try clearing filters.</p>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    // Loaded data
+    private List<PiStarDTO.LootItemDTO>? lootItems;
+
+    // Query-string parameters (bookmarkable state)
+    [SupplyParameterFromQuery(Name = "q")] public string? QParam { get; set; }
+    [SupplyParameterFromQuery(Name = "type")] public string? ItemTypeParam { get; set; }
+    [SupplyParameterFromQuery(Name = "sub")] public string? ItemSubTypeParam { get; set; }
+    [SupplyParameterFromQuery(Name = "sort")] public string? SortParam { get; set; }
+    [SupplyParameterFromQuery(Name = "desc")] public string? DescParam { get; set; }
+
+    // UI state
+    private string? Q { get; set; }
+    private string? ItemTypeUI { get; set; }
+    private string? ItemSubTypeUI { get; set; }
+    private string SortUI { get; set; } = "itemtype";
+    private string DescUI { get; set; } = "no";
+
+    // Quick filter (client-only)
+    private string? Quick { get; set; }
+
+    // Results
+    private List<PiStarDTO.LootItemDTO> Filtered { get; set; } = [];
+    private List<PiStarDTO.LootItemDTO> Visible { get; set; } = [];
+
+    private List<string> ItemTypeOptions =>
+        lootItems?
+            .Select(x => x.ItemTypeName ?? "")
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Distinct()
+            .OrderBy(x => x)
+            .ToList()
+        ?? [];
+
+    private List<string> SubTypeOptions =>
+        lootItems?
+            .Where(x => x.ItemTypeName == ItemTypeUI)
+            .Select(x => x.SubItemTypeName)
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Distinct()
+            .OrderBy(x => x)
+            .ToList()
+        ?? [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        lootItems = await Api.GetLootableItems();
+        Recompute();
+    }
+
+    protected override void OnParametersSet()
+    {
+        Q = QParam;
+        ItemTypeUI = ItemTypeParam;
+        ItemSubTypeUI = ItemSubTypeParam;
+
+        SortUI = string.IsNullOrWhiteSpace(SortParam) ? "itemtype" : SortParam!;
+        DescUI = string.IsNullOrWhiteSpace(DescParam) ? "no" : DescParam!;
+
+        Recompute();
+    }
+
+    private void Recompute()
+    {
+        if (lootItems is null)
+        {
+            Filtered = [];
+            Visible = [];
+            return;
+        }
+
+        IEnumerable<PiStarDTO.LootItemDTO> q = lootItems;
+
+        // Search
+        if (!string.IsNullOrWhiteSpace(Q))
+        {
+            var term = Q.Trim();
+            q = q.Where(x =>
+                (x.ItemName ?? "").Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                (x.ItemTypeName ?? "").Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                (x.SubItemTypeName ?? "").Contains(term, StringComparison.OrdinalIgnoreCase)
+            );
+        }
+
+        // Type filters
+        if (!string.IsNullOrWhiteSpace(ItemTypeUI))
+            q = q.Where(x => string.Equals(x.ItemTypeName, ItemTypeUI, StringComparison.OrdinalIgnoreCase));
+
+        if (!string.IsNullOrWhiteSpace(ItemSubTypeUI))
+            q = q.Where(x => string.Equals(x.SubItemTypeName, ItemSubTypeUI, StringComparison.OrdinalIgnoreCase));
+
+        // Sorting
+        q = SortUI switch
+        {
+            "itemtype" => q.OrderBy(x => x.ItemTypeName).ThenBy(x => x.ItemName),
+            "subitemtype" => q.OrderBy(x => x.SubItemTypeName).ThenBy(x => x.ItemName),
+            "return" => q.OrderBy(x => x.Return).ThenBy(x => x.ItemName),
+            "sell" => q.OrderBy(x => x.CargoSaleValue).ThenBy(x => x.ItemName),
+            "size" => q.OrderBy(x => x.SCUSize).ThenBy(x => x.ItemName),
+            _ => q.OrderBy(x => x.ItemName)
+        };
+
+        if (DescUI == "yes")
+            q = q.Reverse();
+
+        Filtered = q.ToList();
+
+        // Quick filter (client-only)
+        if (!string.IsNullOrWhiteSpace(Quick))
+        {
+            var k = Quick.Trim().ToLowerInvariant();
+            Visible = Filtered
+                .Where(x => $"{x.ItemName} {x.ItemTypeName} {x.SubItemTypeName}".ToLowerInvariant().Contains(k))
+                .ToList();
+        }
+        else
+        {
+            Visible = Filtered;
+        }
+    }
+
+    private void ApplyToUrl()
+    {
+        var qs = new Dictionary<string, object?>()
+        {
+            ["q"] = string.IsNullOrWhiteSpace(Q) ? null : Q,
+            ["type"] = string.IsNullOrWhiteSpace(ItemTypeUI) ? null : ItemTypeUI,
+            ["sub"] = string.IsNullOrWhiteSpace(ItemSubTypeUI) ? null : ItemSubTypeUI,
+            ["sort"] = string.IsNullOrWhiteSpace(SortUI) ? "itemtype" : SortUI,
+            ["desc"] = string.IsNullOrWhiteSpace(DescUI) ? "no" : DescUI
+        };
+
+        var url = Nav.GetUriWithQueryParameters("/lootables", qs);
+        Nav.NavigateTo(url);
+    }
+
+    private void Reset()
+    {
+        Quick = null;
+        Q = null;
+        ItemTypeUI = null;
+        ItemSubTypeUI = null;
+        SortUI = "itemtype";
+        DescUI = "no";
+
+        Nav.NavigateTo("/lootables");
+    }
+
+    // Live recompute as the user types (without touching URL)
+    private string? QBacking
+    {
+        get => Q;
+        set { Q = value; Recompute(); }
+    }
+
+    private string? QuickBacking
+    {
+        get => Quick;
+        set { Quick = value; Recompute(); }
+    }
+}

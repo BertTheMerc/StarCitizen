@@ -3,6 +3,7 @@
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
 	VehicleName VARCHAR(40),
     Manufacturer VARCHAR(60),
+    ManufacturerCode CHAR(5),
     VehicleRole VARCHAR(40),
     Career VARCHAR(40),
     Size CHAR(4),

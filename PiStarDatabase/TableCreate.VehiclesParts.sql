@@ -1,12 +1,19 @@
-﻿CREATE TABLE [dbo].[VehiclesParts]
+﻿CREATE TABLE [dbo].[VehiclesParts](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[VehiclePartsTypeId] [int] NOT NULL,
+	[VehiclesPartsSubItemTypeId] [int] NOT NULL,
+	[PartName] [varchar](40) NOT NULL,
+	[Manufacturer] [varchar](60) NOT NULL,
+    [ManufacturerCode] [char](5) NOT NULL,
+	[Class] [varchar](40) NOT NULL,
+	[Grade] [char](1) NOT NULL,
+	[Size] [int] NOT NULL,
+	[Price] [int] NOT NULL,
+	[SCUSize] [int] NOT NULL,
+	[SalePrice] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
 (
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
-	VehiclePartsTypeId INT NOT NULL,
-    VehiclesPartsSubItemTypeId INT NOT NULL,
-    PartName VARCHAR(40) NOT NULL,
-    Manufacturer VARCHAR(60) NOT NULL,
-    Class VARCHAR(40) NOT NULL,
-    Grade CHAR NOT NULL,
-    Size INT NOT NULL,
-    Price INT NOT NULL,
-)
+	[Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO

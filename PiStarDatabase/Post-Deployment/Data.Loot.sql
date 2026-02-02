@@ -93,8 +93,8 @@ INSERT INTO [dbo].[LootSubItemType] (ItemTypeNameId, SubItemTypeName) VALUES (@c
 
 TRUNCATE TABLE [dbo].[Loot];
 
-INSERT INTO [dbo].[Loot] (ItemName, ItemTypeNameId, SubItemTypeNameId, SCUSize, CargoSaleValue) VALUES ('Arclight Pistol', @personal, @sidearm, 25, 245);
-INSERT INTO [dbo].[Loot] (ItemName, ItemTypeNameId, SubItemTypeNameId, SCUSize, CargoSaleValue) VALUES ('LH86 Pistol', @personal, @sidearm, 25, 240);
+INSERT INTO [dbo].[Loot] (ItemName, ItemTypeNameId, SubItemTypeNameId, SCUSize, CargoSaleValue) VALUES ('Arclight Pistol', @personal, @sidearm, 2500, 245);
+INSERT INTO [dbo].[Loot] (ItemName, ItemTypeNameId, SubItemTypeNameId, SCUSize, CargoSaleValue) VALUES ('LH86 Pistol', @personal, @sidearm, 2500, 240);
 
 INSERT INTO [dbo].[Loot] (ItemName, ItemTypeNameId, SubItemTypeNameId, SCUSize, CargoSaleValue) VALUES ('P6-LR', @personal, @primary, 19000, 2542);
 INSERT INTO [dbo].[Loot] (ItemName, ItemTypeNameId, SubItemTypeNameId, SCUSize, CargoSaleValue) VALUES ('Gallant',@personal , @primary, 13000, 1716);
