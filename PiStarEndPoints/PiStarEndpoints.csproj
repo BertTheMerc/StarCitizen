@@ -14,12 +14,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include=".env\" />
     <Folder Include="Loot\Requests\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PiStarDTO\PiStarDTO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

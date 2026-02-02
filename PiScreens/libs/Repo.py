@@ -3,6 +3,10 @@ from Domain import TradeRoute, ShipDetails, RepairOutposts, ShipComponent, LootR
 import mysql.connector
 
 class Repo:
+
+    
+    self.API_BASE = "http://localhost:8000"   # change to your API
+
     def _get_connection():
         return  mysql.connector.connect(
                 host="192.168.1.200",
@@ -63,18 +67,28 @@ class Repo:
     def get_outposts(area):
         outposts = []
 
-        con = Repo._get_connection()
-        cur = con.cursor()
 
-        sql = f"SELECT outpost, pad_sizes, repair, garage FROM `pistar`.`outposts` WHERE area='{area[0]}'"
-        print (sql)
-        cur.execute(sql)
-        
-        for (outpost, pad_sizes, repair, garage) in cur:
-            outposts.append(RepairOutposts.RepairOutpost(name=outpost, area=area[0], pad_sizes=pad_sizes, repair=repair, garage=garage))
+        url = f"{API_BASE}/outposts"
+        params = {"area": area_name}
 
-        con.close()
+        print(f"Calling API: {url} with {params}")
 
+        resp = requests.get(url, params=params, timeout=15)
+        resp.raise_for_status()
+
+        data = resp.json()   # list of dicts
+
+        for row in data:
+            outposts.append(
+            RepairOutposts.RepairOutpost(
+                name=row["outpost"],
+                area=area_name,
+                pad_sizes=row["pad_sizes"],
+                repair=row["repair"],
+                garage=row["garage"]
+            )
+        )
+       
         print (len(outposts))
 
         return outposts

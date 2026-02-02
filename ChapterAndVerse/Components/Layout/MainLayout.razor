@@ -1,0 +1,23 @@
+﻿@inherits LayoutComponentBase
+
+<div class="container">
+    <div class="shell">
+        <div class="topbar">
+            <div class="brand">
+                <div class="brand-mark" aria-hidden="true"></div>
+                <div>
+                    <div class="brand-title">Chapter N' Verse</div>
+                    <div class="brand-sub">One stop reference for Star Citizen</div>
+                </div>
+            </div>
+
+            <div class="brand-sub mono">@DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm")Z</div>
+        </div>
+
+        <NavBar />
+
+        <main class="content">
+            @Body
+        </main>
+    </div>
+</div>

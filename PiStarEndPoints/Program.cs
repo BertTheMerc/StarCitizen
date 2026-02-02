@@ -1,5 +1,6 @@
 using FastEndpoints;
 using Microsoft.Data.SqlClient;
+using PiStarEndpoints.Properties;
 
 public partial class Program
 {
@@ -10,7 +11,7 @@ public partial class Program
 
         builder.Services.AddSingleton<Func<SqlConnection>>(_ =>
         {
-            var connString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+            var connString = Resources.DATABASE_CONNECTION_STRING;
             return () => new SqlConnection(connString);
         });
 

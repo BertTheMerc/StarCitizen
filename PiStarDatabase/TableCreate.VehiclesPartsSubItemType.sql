@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[VehiclesPartsSubItemType]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
-	VehiclePartsSubItemType VARCHAR(40)
+	VehiclePartsTypeId INT NOT NULL,
+	VehiclePartsSubItemType VARCHAR(40)  NOT NULL
 )
