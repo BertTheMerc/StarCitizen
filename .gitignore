@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /PiScreens/venv
 /PiStarEndPoints/Properties/Resources.resx
+/PiStarEndPoints/appsettings.json
