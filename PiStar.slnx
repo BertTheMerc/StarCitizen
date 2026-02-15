@@ -1,5 +1,11 @@
 <Solution>
-  <Project Path="ChapterAndVerse/ChapterAndVerse.csproj" Id="d82d2c66-8dfe-4365-b8f2-562a2fdc9bfe" />
+  <Project Path="ChapterAndVerse/ChapterAndVerse.csproj" />
+  <Project Path="ChapterAndVerseReact/ChapterAndVerseReact.AppHost/ChapterAndVerseReact.AppHost.csproj" />
+  <Project Path="ChapterAndVerseReact/ChapterAndVerseReact.Server/ChapterAndVerseReact.Server.csproj" />
+  <Project Path="ChapterAndVerseReact/frontend/ChapterAndVerseReact.esproj">
+    <Build />
+    <Deploy />
+  </Project>
   <Project Path="PiScreens/PiScreens.pyproj" Type="888888a0-9f3d-457c-b088-3a5042f75d52" Id="b21d4d00-3dad-48f8-b0da-9919322cb6e3">
     <Build Project="false" />
   </Project>
@@ -7,6 +13,6 @@
     <Build />
     <Deploy />
   </Project>
-  <Project Path="PiStarDTO/PiStarDTO.csproj" Id="1e0166a1-8c61-49d8-a7cf-7a7be4c964c9" />
+  <Project Path="PiStarDTO/PiStarDTO.csproj" />
   <Project Path="PiStarEndPoints/PiStarEndpoints.csproj" />
 </Solution>
