@@ -20,22 +20,27 @@ namespace PiStarEndpoints.Loot.Endpoints
 
         public override async Task HandleAsync(LootItemDTO item, CancellationToken ct)
         {
+            var newid = await InsertLootItemAsync(item, ct);
+            await Send.OkAsync(newid, ct);
+        }
+
+        private async Task<int> InsertLootItemAsync(LootItemDTO item, CancellationToken ct)
+        {
             await using var conn = _connFactory();
             await conn.OpenAsync(ct);
 
             var newId = await conn.QuerySingleAsync<int>(
-                "dbo.InsertLootItem",
-                new
-                {
-                    item.ItemTypeNameId,
-                    item.SubItemTypeNameId,
-                    item.ItemName,
-                    item.SCUSize,
-                    item.CargoSaleValue
-                },
-                commandType: CommandType.StoredProcedure);
-
-            await Send.OkAsync(newId, ct); 
+                            "dbo.InsertLootItem",
+                            new
+                            {
+                                item.ItemTypeNameId,
+                                item.SubItemTypeNameId,
+                                item.ItemName,
+                                item.SCUSize,
+                                item.CargoSaleValue
+                            },
+                            commandType: CommandType.StoredProcedure);
+            return newId;
         }
     }
 }

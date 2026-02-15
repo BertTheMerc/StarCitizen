@@ -20,14 +20,22 @@ namespace PiStarEndpoints.Loot.Endpoints
 
         public override async Task HandleAsync(EmptyRequest req, CancellationToken ct)
         {
+            var loot = await GetLootListTypesAsync(ct);
+            await Send.OkAsync(loot, ct);
+        }
+
+        private async Task<List<LootItemTypeDTO>> GetLootListTypesAsync(CancellationToken ct)
+        {
             await using var conn = _connFactory();
             await conn.OpenAsync(ct);
 
-            var lootTypes = await conn.QueryAsync<LootItemTypeDTO>(
-                "dbo.GetLootItemTypeList",
-                commandType: CommandType.StoredProcedure);
+            var command = new CommandDefinition(
+                "dbo.GetLootList",
+                commandType: CommandType.StoredProcedure,
+                cancellationToken: ct);
 
-            await Send.OkAsync(lootTypes.AsList(), ct); 
+            var loot = await conn.QueryAsync<LootItemTypeDTO>(command);
+            return loot.AsList();
         }
     }
 }
