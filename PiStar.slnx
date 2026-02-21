@@ -10,7 +10,6 @@
     <Build Project="false" />
   </Project>
   <Project Path="PiStarDatabase/PiStarDatabase.sqlproj" Id="dacd9e4b-273f-411a-be31-d1ed92ada85b">
-    <Build Solution="Release|*" />
     <Deploy />
   </Project>
   <Project Path="PiStarDTO/PiStarDTO.csproj" />
