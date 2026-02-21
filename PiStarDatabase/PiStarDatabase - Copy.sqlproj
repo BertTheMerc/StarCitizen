@@ -21,8 +21,6 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
-    <TargetFrameworkProfile />
-    <GenerateCreateScript>True</GenerateCreateScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -52,14 +50,26 @@
     <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
     <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
   </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Pre-Deployment" />
     <Folder Include="Post-Deployment" />
     <Folder Include="StoredProcs" />
-    <Folder Include="Tables" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="TableCreate.Loot.sql" />
+    <Build Include="TableCreate.LootType.sql" />
+    <Build Include="TableCreate.LootSubItemType.sql" />
+    <Build Include="TableCreate.Systems.sql" />
+    <Build Include="TableCreate.SubSystem.sql" />
+    <Build Include="TableCreate.Outposts.sql" />
+    <Build Include="TableCreate.VehiclesParts.sql" />
+    <Build Include="TableCreate.VehiclesPartsType.sql" />
+    <Build Include="TableCreate.VehiclesPartsSubItemType.sql" />
+    <Build Include="TableCreate.TradeRoutes.sql" />
+    <Build Include="TableCreate.Vehicles.sql" />
     <None Include="Post-Deployment\Script.PostDeployment.sql" />
     <None Include="Post-Deployment\Data.VehiclesParts.sql" />
     <Build Include="StoredProcs\UpsertVehicle.sql" />
@@ -68,17 +78,6 @@
     <Build Include="StoredProcs\GetLootList.sql" />
     <None Include="Post-Deployment\Data.Universe.sql" />
     <Build Include="StoredProcs\GetOutpostsList.sql" />
-    <Build Include="Tables\TableCreate.Loot.sql" />
-    <Build Include="Tables\TableCreate.LootSubItemType.sql" />
-    <Build Include="Tables\TableCreate.LootType.sql" />
-    <Build Include="Tables\TableCreate.Outposts.sql" />
-    <Build Include="Tables\TableCreate.SubSystem.sql" />
-    <Build Include="Tables\TableCreate.Systems.sql" />
-    <Build Include="Tables\TableCreate.TradeRoutes.sql" />
-    <Build Include="Tables\TableCreate.Vehicles.sql" />
-    <Build Include="Tables\TableCreate.VehiclesParts.sql" />
-    <Build Include="Tables\TableCreate.VehiclesPartsSubItemType.sql" />
-    <Build Include="Tables\TableCreate.VehiclesPartsType.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Post-Deployment\Data.Outposts.sql" />
