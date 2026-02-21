@@ -11,7 +11,7 @@ public partial class Program
 
         builder.Services.AddSingleton<Func<SqlConnection>>(_ =>
         {
-            var connString = Resources.DATABASE_CONNECTION_STRING;
+            var connString = Resource.DATABASE_CONNECTION_STRING;
             return () => new SqlConnection(connString);
         });
 

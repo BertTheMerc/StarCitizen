@@ -44,12 +44,25 @@ button {
   cursor: pointer;
 }
 
+.logo {
+    flex: 0,0, 250px
+}
+
+.HeaderRight {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.flex {
+    display: flex;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }

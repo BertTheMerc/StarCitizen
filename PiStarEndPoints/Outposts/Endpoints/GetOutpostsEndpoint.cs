@@ -4,38 +4,38 @@ using Microsoft.Data.SqlClient;
 using PiStarDTO;
 using System.Data;
 
-namespace PiStarEndpoints.Loot.Endpoints
+namespace PiStarEndpoints.Outposts.Endpoints
 {
-    public class GetOutpostEndpoint : Endpoint<EmptyRequest, List<LootItemDTO>>
+    public class GetOutpostsEndpoint : Endpoint<EmptyRequest, List<OutpostDTO>>
     {
         private readonly Func<SqlConnection> _connFactory;
 
-        public GetOutpostEndpoint(Func<SqlConnection> connFactory) => _connFactory = connFactory;
+        public GetOutpostsEndpoint(Func<SqlConnection> connFactory) => _connFactory = connFactory;
 
         public override void Configure()
         {
-            Get("/api/loot");
+            Get("/api/outposts");
             AllowAnonymous();
         }
 
         public override async Task HandleAsync(EmptyRequest req, CancellationToken ct)
         {
-            var loot = await GetLootSubListTypesAsync(ct);
-            await Send.OkAsync(loot, ct);
+            var outposts = await GetOutpostsAsync(ct);
+            await Send.OkAsync(outposts, ct);
         }
 
-        private async Task<List<LootItemDTO>> GetLootSubListTypesAsync(CancellationToken ct)
+        private async Task<List<OutpostDTO>> GetOutpostsAsync(CancellationToken ct)
         {
             await using var conn = _connFactory();
             await conn.OpenAsync(ct);
 
             var command = new CommandDefinition(
-                "dbo.GetLootList",
+                "dbo.GetOutpostList",
                 commandType: CommandType.StoredProcedure,
                 cancellationToken: ct);
 
-            var loot = await conn.QueryAsync<LootItemDTO>(command);
-            return loot.AsList();
+            var outposts = await conn.QueryAsync<OutpostDTO>(command);
+            return outposts.AsList();
         }
 
 
