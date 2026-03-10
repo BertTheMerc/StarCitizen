@@ -1,6 +1,6 @@
 ﻿namespace PiStarDTO
 {
-    public class SystemDTO
+    public record SystemDTO
     {
         public int Id { get; set; }
 

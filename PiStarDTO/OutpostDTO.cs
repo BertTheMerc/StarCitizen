@@ -1,6 +1,6 @@
 ﻿namespace PiStarDTO
 {
-    public class OutpostDTO
+    public record OutpostDTO
     {
         public int Id { get; set; }
 

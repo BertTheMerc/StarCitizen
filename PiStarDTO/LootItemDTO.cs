@@ -1,6 +1,6 @@
 ﻿namespace PiStarDTO
 {
-    public class LootItemDTO
+    public record LootItemDTO
     {
         public int Id { get; set; }
 

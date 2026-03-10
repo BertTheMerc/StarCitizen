@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="AmpligameInterface/AmpligameInterface.csproj" Id="734b14d6-b643-4a79-8a08-87402bcfa9cf" />
   <Project Path="ChapterAndVerse/ChapterAndVerse.csproj" />
   <Project Path="ChapterAndVerseReact/ChapterAndVerseReact.AppHost/ChapterAndVerseReact.AppHost.csproj" />
   <Project Path="ChapterAndVerseReact/ChapterAndVerseReact.Server/ChapterAndVerseReact.Server.csproj" />

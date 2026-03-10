@@ -1,3 +1,4 @@
+//import { Component, type MouseEvent } from 'react'
 import { type MouseEvent } from 'react'
 import './App.css'
 
@@ -8,6 +9,7 @@ import HomePage from './pages/HomePage'
 import PlaceholderPage from './pages/PlaceholderPage'
 import LootablesPage from './pages/LootablesPage'
 import OutpostsPage from './pages/OutpostsPage'
+import ComponentsPage from './pages/ComponentsPage'
 
 export default function App() {
     const { route, navigate } = useRoute()
@@ -53,7 +55,7 @@ export default function App() {
                         {route === '/' && <HomePage />}
                         {route === '/claim-timers' && <PlaceholderPage title="Claim Timers" />}
                         {route === '/outposts' && <OutpostsPage />}
-                        {route === '/components' && <PlaceholderPage title="Components" />}
+                        {route === '/components' && <ComponentsPage />}
                         {route === '/lootables' && <LootablesPage />}
                     </main>
                 </div>

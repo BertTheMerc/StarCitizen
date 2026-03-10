@@ -1,0 +1,31 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "PiStarEndPoints\\PiStarEndpoints.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "ChapterAndVerse\\ChapterAndVerse.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "ChapterAndVerseReact\\ChapterAndVerseReact.AppHost\\ChapterAndVerseReact.AppHost.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "ChapterAndVerseReact\\ChapterAndVerseReact.Server\\ChapterAndVerseReact.Server.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "ChapterAndVerseReact\\frontend\\ChapterAndVerseReact.esproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

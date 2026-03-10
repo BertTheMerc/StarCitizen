@@ -1,5 +1,5 @@
 // src/router/routes.ts
-export type RoutePath = '/' | '/claim-timers' | '/outposts' | '/lootables' | '/components' | '/weather'
+export type RoutePath = '/' | '/claim-timers' | '/outposts' | '/lootables' | '/components'
 
 export const routes: Array<{ path: RoutePath; label: string }> = [
     { path: '/', label: 'Home' },

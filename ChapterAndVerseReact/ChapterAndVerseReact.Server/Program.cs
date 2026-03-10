@@ -60,6 +60,29 @@ api.MapGet("outposts", async (PiStarApiClient client, CancellationToken ct) =>
     });
 });
 
+api.MapGet("components", async (PiStarApiClient client, CancellationToken ct) =>
+{
+    var items = await client.GetComponentsAsync(ct);
+
+    return items.Select(item => new
+    {
+        item.CategoryName,
+        item.ComponentId,
+        item.ComponentName,
+        item.ManufacturerName,
+        item.ManufacturerCode,
+        item.Size,
+        item.Class,
+        item.Grade,
+        item.WeaponType,
+        item.TrackingSignalType,
+        item.Health,
+        item.Price,
+        item.SCUSize,
+        item.SalePrice
+    });
+});
+
 app.MapDefaultEndpoints();
 
 app.UseDefaultFiles();
@@ -70,8 +93,6 @@ app.Run();
 
 public sealed class PiStarApiClient(HttpClient http)
 {
-    // Adjust path to whatever the upstream provides:
-    // e.g. GET https://your-upstream-api.example.com/api/loot
     public async Task<PiStarDTO.LootItemDTO[]> GetLootAsync(CancellationToken ct)
     {
         var items = await http.GetFromJsonAsync<PiStarDTO.LootItemDTO[]>("api/loot", ct);
@@ -81,6 +102,12 @@ public sealed class PiStarApiClient(HttpClient http)
     public async Task<PiStarDTO.OutpostDTO[]> GetOutpostsAsync(CancellationToken ct)
     {
         var items = await http.GetFromJsonAsync<PiStarDTO.OutpostDTO[]>("api/outposts", ct);
+        return items ?? [];
+    }
+
+    public async Task<PiStarDTO.ComponentItemDTO[]> GetComponentsAsync(CancellationToken ct)
+    {
+        var items = await http.GetFromJsonAsync<PiStarDTO.ComponentItemDTO[]>("api/components", ct);
         return items ?? [];
     }
 }
