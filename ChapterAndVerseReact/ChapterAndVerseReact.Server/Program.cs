@@ -19,6 +19,9 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();
+///app.UseDefaultFiles();
+///app.UseStaticFiles();
+
 
 if (app.Environment.IsDevelopment())
 {
@@ -71,7 +74,7 @@ api.MapGet("components", async (PiStarApiClient client, CancellationToken ct) =>
         item.ComponentName,
         item.ManufacturerName,
         item.ManufacturerCode,
-        item.Size,
+        item.SizeOfComponent,
         item.Class,
         item.Grade,
         item.WeaponType,

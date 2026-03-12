@@ -7,7 +7,7 @@
         public required string ComponentName { get; set; }
         public required string ManufacturerName { get; set; }
         public required string ManufacturerCode { get; set; }
-        public required int Size { get; set; }
+        public required int SizeOfComponent { get; set; }
         public required string Class { get; set; }
         public required string Grade { get; set; }
         public required string WeaponType { get; set; }

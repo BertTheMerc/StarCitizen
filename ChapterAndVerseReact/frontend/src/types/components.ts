@@ -1,15 +1,18 @@
 import { type SortOrder } from './shared'
 
-export type ComponentsSortKey = 'categoryname' | 'componentname' | 'manufacturecode' | 'size' | 'class' | 'grade'
+export type ComponentsSortKey = 'categoryname' | 'componentname' | 'manufacturecode' | 'sizeofcomponent' | 'class' | 'grade'
 
 export interface ComponentItem {
     Id: number
     categoryName: string
     componentName: string
-    manufactureCode: string
-    size: number
+    manufacturerName: string
+    manufacturerCode: string
+    sizeOfComponent: string
     class: string
     grade: string
+    weaponType: string
+    price: number
     scuSize: number
     cargoSaleValue: number
     return: number
@@ -18,9 +21,8 @@ export interface ComponentItem {
 export interface ComponentQuery {
     q: string
     categoryName: string
-    componentName: string
     manufactureCode: string
-    size: number
+    sizeOfComponent: string
     class: string
     grade: string
     sort: ComponentsSortKey
@@ -30,9 +32,8 @@ export interface ComponentQuery {
 export const defaultComponentQuery: ComponentQuery = {
     q: '',
     categoryName: '',
-    componentName: '',
     manufactureCode: '',
-    size: -1,
+    sizeOfComponent: '',
     class: '',
     grade: '',
     sort: 'componentname',

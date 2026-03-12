@@ -10,6 +10,8 @@ export default function ComponentsPage() {
         const [error, setError] = useState<string | null>(null)
         const [filters, setFilters] = useState<ComponentQuery>(readComponentQuery)
 
+        const safeLower = (value: unknown) => String(value ?? '').toLowerCase()
+
         useEffect(() => {
             const onPopState = () => setFilters(readComponentQuery())
             window.addEventListener('popstate', onPopState)
@@ -42,37 +44,63 @@ export default function ComponentsPage() {
             [allItems],
         )
 
-        const componentOptions = useMemo(
+        /*
+       const sizeOptions = useMemo(
             () =>
                 [
                     ...new Set(
                         allItems
-                            .filter((item) => !filters.categoryName || item.categoryName.toLowerCase() === filters.categoryName.toLowerCase())
-                            .map((item) => item.componentName)
+                            .filter((item) => !filters.sizeOfComponent || safeLower(item.sizeOfComponent) === safeLower(filters.sizeOfComponent))
+                            .map((item) => item.sizeOfComponent)
                             .filter(Boolean),
                     ),
                 ].sort((left, right) => left.localeCompare(right)),
-            [allItems, filters.categoryName],
+            [allItems, filters.sizeOfComponent]
+        )
+        */
+        const classOptions = useMemo(
+        () =>
+            [
+                ...new Set(
+                    allItems
+                        .filter((item) => !filters.class || safeLower(item.class) === safeLower(filters.class))
+                        .map((item) => item.class)
+                        .filter(Boolean),
+                ),
+            ].sort((left, right) => left.localeCompare(right)),
+        [allItems, filters.class]
         )
 
+        const gradeOptions = useMemo(
+        () =>
+            [
+                ...new Set(
+                    allItems
+                        .filter((item) => !filters.grade || safeLower(item.grade) === safeLower(filters.grade))
+                        .map((item) => item.grade)
+                        .filter(Boolean),
+                ),
+            ].sort((left, right) => left.localeCompare(right)),
+        [allItems, filters.grade]
+    )
 
         const manufactureOptions = useMemo(
-        () => [...new Set(allItems.map((item) => item.manufactureCode).filter(Boolean))].sort((left, right) => left.localeCompare(right)),
+            () => [...new Set(allItems.map((item) => item.manufacturerCode).filter(Boolean))].sort((left, right) => left.localeCompare(right)),
         [allItems],
     )
 
         const componentvisible = useMemo(() => {
-            const term = filters.q.trim().toLowerCase()
+            const term = safeLower(filters.q).trim()
 
             const filtered = allItems.filter((item) => {
                 if (term.length > 0) {
-                    const haystack = `${item.categoryName} ${item.componentName} ${item.manufactureCode}`.toLowerCase()
+                    const haystack = safeLower(`${item.categoryName} ${item.componentName} ${item.manufacturerCode}`)
                     if (!haystack.includes(term)) return false
                 }
 
-                if (filters.categoryName && item.categoryName.toLowerCase() !== filters.categoryName.toLowerCase()) return false
-                if (filters.componentName && item.componentName.toLowerCase() !== filters.componentName.toLowerCase()) return false
-                if (filters.manufactureCode && item.manufactureCode.toLowerCase() !== filters.manufactureCode.toLowerCase()) return false
+                if (filters.categoryName && safeLower(item.categoryName) !== safeLower(filters.categoryName)) return false
+                if (filters.manufactureCode && safeLower(item.manufacturerCode) !== safeLower(filters.manufactureCode)) return false
+                if (filters.sizeOfComponent && safeLower(item.sizeOfComponent) !== safeLower(filters.sizeOfComponent)) return false
                 return true
             })
 
@@ -81,11 +109,13 @@ export default function ComponentsPage() {
 
                 switch (filters.sort) {
                     case 'categoryname':
-                        return compare(left.categoryName, right.categoryName) || compare(left.categoryName, right.categoryName)
+                        return compare(left.categoryName, right.categoryName)
                     case 'componentname':
-                        return compare(left.componentName, right.componentName) || compare(left.componentName, right.componentName)
+                        return compare(left.componentName, right.componentName)
                     case 'manufacturecode':
-                        return compare(left.manufactureCode, right.manufactureCode) || compare(left.manufactureCode, right.manufactureCode)
+                        return compare(left.manufacturerCode, right.manufacturerCode)
+                    case 'sizeofcomponent':
+                        return compare(left.sizeOfComponent, right.sizeOfComponent)
                     default:
                         return compare(left.categoryName, right.categoryName)
                 }
@@ -104,6 +134,8 @@ export default function ComponentsPage() {
             setFilters(defaultComponentQuery)
             writeComponentQuery(defaultComponentQuery)
         }
+
+        const showCategoryColumn = !filters.categoryName
 
         return (
             <>
@@ -127,30 +159,15 @@ export default function ComponentsPage() {
                                     placeholder="category / component / manufacture"
                                 />
 
-                                <label htmlFor="component-system">Category</label>
+                                <label htmlFor="component-category">Category</label>
                                 <select
                                     id="component-category"
                                     className="select"
                                     value={filters.categoryName}
-                                    onChange={(event) => setFilters((current) => ({ ...current, systemname: event.target.value, subsystemname: '', area: '' }))}
+                                    onChange={(event) => setFilters((current) => ({ ...current, categoryName: event.target.value, manufactureCode: '' }))}
                                 >
                                     <option value="">All</option>
                                     {categoryOptions.map((item) => (
-                                        <option key={item} value={item}>
-                                            {item}
-                                        </option>
-                                    ))}
-                                </select>
-
-                                <label htmlFor="component-component">Component</label>
-                                <select
-                                    id="component-component"
-                                    className="select"
-                                    value={filters.componentName}
-                                    onChange={(event) => setFilters((current) => ({ ...current, subsystemname: event.target.value, area: '' }))}
-                                >
-                                    <option value="">All</option>
-                                    {componentOptions.map((item) => (
                                         <option key={item} value={item}>
                                             {item}
                                         </option>
@@ -162,7 +179,7 @@ export default function ComponentsPage() {
                                     id="component-manufacture"
                                     className="select"
                                     value={filters.manufactureCode}
-                                    onChange={(event) => setFilters((current) => ({ ...current, area: event.target.value }))}
+                                            onChange={(event) => setFilters((current) => ({ ...current, manufactureCode: event.target.value }))}
                                 >
                                     <option value="">All</option>
                                         {manufactureOptions.map((item) => (
@@ -171,6 +188,37 @@ export default function ComponentsPage() {
                                         </option>
                                     ))}
                                 </select>
+
+                                        
+                                        <label htmlFor="component-class">Class</label>
+                                        <select
+                                            id="component-class"
+                                            className="select"
+                                            value={filters.class}
+                                            onChange={(event) => setFilters((current) => ({ ...current, class: event.target.value }))}
+                                        >
+                                            <option value="">All</option>
+                                            {classOptions.map((item) => (
+                                                <option key={item} value={item}>
+                                                    {item}
+                                                </option>
+                                            ))}
+                                        </select>
+
+                                        <label htmlFor="component-grade">Grade</label>
+                                        <select
+                                            id="component-grade"
+                                            className="select"
+                                            value={filters.grade}
+                                            onChange={(event) => setFilters((current) => ({ ...current, grade: event.target.value}))}
+                                        >
+                                            <option value="">All</option>
+                                            {gradeOptions.map((item) => (
+                                                <option key={item} value={item}>
+                                                    {item}
+                                                </option>
+                                            ))}
+                                        </select>
 
                                 <label htmlFor="component-sort">Sort</label>
                                 <select
@@ -216,9 +264,9 @@ export default function ComponentsPage() {
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        <th>Category</th>
-                                        <th>Component</th>
-                                        <th>Manufacture</th>
+                                        {showCategoryColumn && <th>Cat</th>}
+                                        <th>Name</th>
+                                        <th>Man</th>
                                         <th>Size</th>
                                         <th>Class</th>
                                         <th>Grade</th>
@@ -230,10 +278,10 @@ export default function ComponentsPage() {
                                 <tbody>
                                     {componentvisible.map((item) => (
                                         <tr key={`${item.Id}`}>
-                                            <td>{item.categoryName}</td>
+                                            {showCategoryColumn && <th>{item.categoryName}</th>}
                                             <td>{item.componentName}</td>
-                                            <td>{item.manufactureCode}</td>
-                                            <td>{String(item.size)}</td>
+                                            <td>{item.manufacturerCode}</td>
+                                            <td>{String(item.sizeOfComponent)}</td>
                                             <td>{item.class}</td>
                                             <td>{item.grade}</td>
                                             <td>{String(item.scuSize)}</td>

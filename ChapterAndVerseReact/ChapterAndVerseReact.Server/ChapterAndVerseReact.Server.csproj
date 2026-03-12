@@ -19,5 +19,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\PiStarDTO\PiStarDTO.csproj" />
-  </ItemGroup>
+	<ProjectReference Include="..\frontend\ChapterAndVerseReact.esproj">
+	    <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+		</ProjectReference>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="wwwroot\" />
+	</ItemGroup>
 </Project>

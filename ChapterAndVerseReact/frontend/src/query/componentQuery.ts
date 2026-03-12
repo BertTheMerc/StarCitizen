@@ -3,7 +3,7 @@ import { type SortOrder } from '../types/shared'
 
 
 const isComponentSortKey = (value: string | null): value is ComponentsSortKey =>
-    value === 'categoryname' || value === 'componentname' || value === 'manufacturecode' || value === 'size' || value === 'class' || value === 'grade'
+    value === 'categoryname' || value === 'componentname' || value === 'manufacturecode' || value === 'sizeofcomponent' || value === 'class' || value === 'grade'
 
 const isSortOrder = (value: string | null): value is SortOrder => value === 'no' || value === 'yes'
 
@@ -15,9 +15,8 @@ export const readComponentQuery = (): ComponentQuery => {
     return {
         q: params.get('q') ?? '',
         categoryName: params.get('categoryname') ?? '',
-        componentName: params.get('componentname') ?? '',
         manufactureCode: params.get('manufacturecode') ?? '',
-        size: isNaN(Number(params.get('size'))) ? -1 : Number(params.get('size')),
+        sizeOfComponent: params.get('sizeofcomponent') ?? '',
         class: params.get('class') ?? '',
         grade: params.get('grade') ?? '',
         sort: isComponentSortKey(sortParam) ? sortParam : 'componentname',
@@ -28,9 +27,9 @@ export const readComponentQuery = (): ComponentQuery => {
 export const writeComponentQuery = (query: ComponentQuery) => {
     const params = new URLSearchParams()
     if (query.q.trim()) params.set('q', query.q.trim())
-    if (query.componentName) params.set('componentname', query.componentName)
+    if (query.categoryName.trim()) params.set('categoryName', query.categoryName.trim())
     if (query.manufactureCode) params.set('manufacturecode', query.manufactureCode)
-    if (query.size) params.set('size', String(query.size))
+    if (query.sizeOfComponent) params.set('sizeofcomponent', String(query.sizeOfComponent))
     if (query.class) params.set('class', query.class)
     if (query.grade) params.set('grade', query.grade)
     params.set('sort', query.sort)
