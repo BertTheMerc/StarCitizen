@@ -4,13 +4,9 @@
     {
         public int Id { get; set; }
 
-        public int ItemTypeNameId { get; set; }
+        public string ItemType { get; set; } = string.Empty;
 
-        public string ItemTypeName { get; set; } = string.Empty;
-        
-        public int SubItemTypeNameId { get; set; }
-
-        public string SubItemTypeName { get; set; } = string.Empty;
+        public string SubType { get; set; } = string.Empty;
 
         public string ItemName { get; set; } = default!;
         
@@ -33,15 +29,15 @@
 
         public LootItemDTO()
         {
-            Category = new ItemCategory(this.ItemTypeName, this.SubItemTypeName);
+            Category = new ItemCategory(this.ItemType, this.SubType);
         }       
     }
 
-    public sealed record ItemCategory(string ItemTypeName, string SubItemTypeName)
+    public sealed record ItemCategory(string ItemType, string SubItemType)
     {
         public override string ToString() =>
-        string.IsNullOrWhiteSpace(ItemTypeName)
-            ? SubItemTypeName
-            : $"{ItemTypeName} → {SubItemTypeName}";
+        string.IsNullOrWhiteSpace(ItemType)
+            ? SubItemType
+            : $"{ItemType} → {SubItemType}";
     }
 }

@@ -14,7 +14,8 @@ class LootComponents(ScreenTemplate.Screen_Template):
         self.items_per_page = 16
         self.mil_class = True 
 
-        self.components = Repo.Repo.get_loot_components()
+        repo = Repo.Repo()
+        self.components = repo.get_components()
 
     def create(self):
         pass

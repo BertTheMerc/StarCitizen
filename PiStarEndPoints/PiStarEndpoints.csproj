@@ -7,14 +7,37 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Loot\Requests\**" />
+    <Content Remove="Loot\Requests\**" />
+    <EmbeddedResource Remove="Loot\Requests\**" />
+    <None Remove="Loot\Requests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Data\loot.json" />
+    <Content Remove="Data\Materials.json" />
+    <Content Remove="Data\Outposts.json" />
+    <Content Remove="Data\VechicleWeapons.json" />
+    <Content Remove="Data\VehicleComponents.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="FastEndpoints" Version="7.1.1" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\Requests\" />
-    <Folder Include="Loot\Requests\" />
+    <Folder Include="VehicleWeapons\Requests\" />
+    <Folder Include="VehicleComponents\Requests\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Data\VechicleWeapons.json" />
+    <None Include="Data\materials.json" />
+    <None Include="Data\outposts.json" />
+    <None Include="Data\loot.json" />
+    <None Include="Data\VehicleComponents.json" />
   </ItemGroup>
 
   <ItemGroup>

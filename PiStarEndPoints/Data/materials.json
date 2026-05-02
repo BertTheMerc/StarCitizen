@@ -1,0 +1,158 @@
+[
+  {
+    "Id": 1,
+    "Name": "Quantanium",
+    "IR": 3170,
+    "Max": 2
+  },
+  {
+    "Id": 2,
+    "Name": "Stileron",
+    "IR": 3185,
+    "Max": 2
+  },
+  {
+    "Id": 3,
+    "Name": "Savrilium",
+    "IR": 3200,
+    "Max": 2
+  },
+  {
+    "Id": 4,
+    "Name": "Ouratite",
+    "IR": 3370,
+    "Max": 2
+  },
+  {
+    "Id": 5,
+    "Name": "Riccite",
+    "IR": 3385,
+    "Max": 2
+  },
+  {
+    "Id": 6,
+    "Name": "Lindinium",
+    "IR": 3400,
+    "Max": 4
+  },
+  {
+    "Id": 7,
+    "Name": "Beryl",
+    "IR": 3540,
+    "Max": 4
+  },
+  {
+    "Id": 8,
+    "Name": "Taranite",
+    "IR": 3555,
+    "Max": 4
+  },
+  {
+    "Id": 9,
+    "Name": "Borase",
+    "IR": 3570,
+    "Max": 4
+  },
+  {
+    "Id": 10,
+    "Name": "Gold",
+    "IR": 3585,
+    "Max": 4
+  },
+  {
+    "Id": 11,
+    "Name": "Bexalite",
+    "IR": 3600,
+    "Max": 4
+  },
+  {
+    "Id": 12,
+    "Name": "Laranite",
+    "IR": 3825,
+    "Max": 4
+  },
+  {
+    "Id": 13,
+    "Name": "Aslarite",
+    "IR": 3840,
+    "Max": 4
+  },
+  {
+    "Id": 14,
+    "Name": "Titanium",
+    "IR": 3855,
+    "Max": 4
+  },
+  {
+    "Id": 15,
+    "Name": "Tungstan",
+    "IR": 3870,
+    "Max": 4
+  },
+  {
+    "Id": 16,
+    "Name": "Argicium",
+    "IR": 3885,
+    "Max": 4
+  },
+  {
+    "Id": 17,
+    "Name": "Torite",
+    "IR": 3900,
+    "Max": 6
+  },
+  {
+    "Id": 18,
+    "Name": "Hephaestanite",
+    "IR": 4180,
+    "Max": 6
+  },
+  {
+    "Id": 19,
+    "Name": "Tin",
+    "IR": 4195,
+    "Max": 6
+  },
+  {
+    "Id": 20,
+    "Name": "Quartz",
+    "IR": 4210,
+    "Max": 6
+  },
+  {
+    "Id": 21,
+    "Name": "Coruindum",
+    "IR": 4225,
+    "Max": 6
+  },
+  {
+    "Id": 22,
+    "Name": "Copper",
+    "IR": 4240,
+    "Max": 6
+  },
+  {
+    "Id": 23,
+    "Name": "Silicon",
+    "IR": 4255,
+    "Max": 6
+  },
+  {
+    "Id": 24,
+    "Name": "Iron",
+    "IR": 3900,
+    "Max": 6
+  },
+  {
+    "Id": 25,
+    "Name": "Aluminum",
+    "IR": 4285,
+    "Max": 6
+  },
+  {
+    "Id": 26,
+    "Name": "Ice",
+    "IR": 4300,
+    "Max": 6
+  }
+]

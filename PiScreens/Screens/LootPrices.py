@@ -1,5 +1,4 @@
 from libs import Helper, Repo
-from Domain import TradeRoute
 import pygame
 import numpy as np
 from pygame.locals import *
@@ -7,8 +6,7 @@ from Screens import MultiList
 
 class LootPrices(MultiList.MultiList):
     def __init__(self, screen, fonts):
-        
-    
+            
         item_types = [  
                             "Weapons", 
                             "Armour",
@@ -29,8 +27,9 @@ class LootPrices(MultiList.MultiList):
         sub_item_types.append(["ALL"])
 
         super().__init__(screen, "LOOT PRICES", fonts, item_types, sub_item_types, columns, [140, 600, 700, 800, 900])
-        self.data_source = Repo.Repo.get_loot_resale_prices()
-
+        repo = Repo.Repo()
+        self.data_source = repo.get_loot_resale_prices()
+    
     def create(self):
         pass
 

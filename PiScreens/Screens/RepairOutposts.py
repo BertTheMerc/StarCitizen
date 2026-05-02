@@ -7,10 +7,13 @@ from Screens import MultiList
 class RepairOutposts(MultiList.MultiList):
     def __init__(self, screen, fonts):
         print ("Repair Outposts")
-        data_source = Repo.Repo.get_all_outposts()
+        repo = Repo.Repo()
+        data_source = repo.get_outposts()
         
         system_seen = set()
         item_type = []
+
+        item_types = {c.category for c in data_source}
 
         for item in data_source:  
             if item.system not in system_seen:

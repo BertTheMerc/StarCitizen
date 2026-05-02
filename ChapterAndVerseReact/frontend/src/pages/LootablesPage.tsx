@@ -42,7 +42,7 @@ export default function LootablesPage() {
     }, [])
 
     const itemTypeOptions = useMemo(
-        () => [...new Set(allItems.map((item) => item.itemTypeName).filter(Boolean))].sort((left, right) => left.localeCompare(right)),
+        () => [...new Set(allItems.map((item) => item.itemType).filter(Boolean))].sort((left, right) => left.localeCompare(right)),
         [allItems],
     )
 
@@ -51,8 +51,8 @@ export default function LootablesPage() {
             [
                 ...new Set(
                     allItems
-                        .filter((item) => !filters.type || item.itemTypeName.toLowerCase() === filters.type.toLowerCase())
-                        .map((item) => item.subItemTypeName)
+                        .filter((item) => !filters.type || item.itemType.toLowerCase() === filters.type.toLowerCase())
+                        .map((item) => item.subType)
                         .filter(Boolean),
                 ),
             ].sort((left, right) => left.localeCompare(right)),
@@ -64,12 +64,12 @@ export default function LootablesPage() {
 
         const filtered = allItems.filter((item) => {
             if (term.length > 0) {
-                const haystack = `${item.itemName} ${item.itemTypeName} ${item.subItemTypeName}`.toLowerCase()
+                const haystack = `${item.itemName} ${item.itemType} ${item.subType}`.toLowerCase()
                 if (!haystack.includes(term)) return false
             }
 
-            if (filters.type && item.itemTypeName.toLowerCase() !== filters.type.toLowerCase()) return false
-            if (filters.sub && item.subItemTypeName.toLowerCase() !== filters.sub.toLowerCase()) return false
+            if (filters.type && item.itemType.toLowerCase() !== filters.type.toLowerCase()) return false
+            if (filters.sub && item.subType.toLowerCase() !== filters.sub.toLowerCase()) return false
             return true
         })
 
@@ -78,9 +78,9 @@ export default function LootablesPage() {
 
             switch (filters.sort) {
                 case 'itemtype':
-                    return compare(left.itemTypeName, right.itemTypeName) || compare(left.itemName, right.itemName)
+                    return compare(left.itemType, right.itemType) || compare(left.itemName, right.itemName)
                 case 'subitemtype':
-                    return compare(left.subItemTypeName, right.subItemTypeName) || compare(left.itemName, right.itemName)
+                    return compare(left.subType, right.subType) || compare(left.itemName, right.itemName)
                 case 'return':
                     return compare(left.return, right.return) || compare(left.itemName, right.itemName)
                 case 'sell':
@@ -214,9 +214,9 @@ export default function LootablesPage() {
                             </thead>
                             <tbody>
                                 {lootvisible.map((item) => (
-                                    <tr key={`${item.itemName}-${item.subItemTypeName}`}>
-                                        <td>{item.itemTypeName}</td>
-                                        <td>{item.subItemTypeName}</td>
+                                    <tr key={`${item.itemName}-${item.subType}`}>
+                                        <td>{item.itemType}</td>
+                                        <td>{item.subType}</td>
                                         <td>{item.itemName}</td>
                                         <td>{item.scuSize}</td>
                                         <td>{item.cargoSaleValue}</td>

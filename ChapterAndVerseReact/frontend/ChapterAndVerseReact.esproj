@@ -1,18 +1,15 @@
 <Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.4110890">
-	<PropertyGroup>
-		<!-- Let VS prepare the app -->
-		<ShouldRunNpmInstall>true</ShouldRunNpmInstall>
-		<ShouldRunBuildScript>true</ShouldRunBuildScript>
-
-		<!-- Tell VS how to run and build the frontend -->
-		<StartupCommand>npm run dev</StartupCommand>
-		<BuildCommand>npm run build</BuildCommand>
-
-		<!-- (Optional but helps) -->
-		<WorkingDirectory>$(MSBuildProjectDirectory)</WorkingDirectory>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<Folder Include="public\fonts\" />
-	</ItemGroup>
+  <PropertyGroup>
+    <!-- Let VS prepare the app -->
+    <ShouldRunNpmInstall>true</ShouldRunNpmInstall>
+    <ShouldRunBuildScript>true</ShouldRunBuildScript>
+    <!-- Tell VS how to run and build the frontend -->
+    <StartupCommand>npm run dev</StartupCommand>
+    <BuildCommand>npm run build</BuildCommand>
+    <!-- (Optional but helps) -->
+    <WorkingDirectory>$(MSBuildProjectDirectory)</WorkingDirectory>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="public\fonts\" />
+  </ItemGroup>
 </Project>

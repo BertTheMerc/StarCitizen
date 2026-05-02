@@ -4,6 +4,6 @@ namespace PiStarEndpoints.Outposts.Response
 {
     public class OutpostListResponse
     {
-        public List<OutpostDTO> Loot { get; set; } = new List<OutpostDTO>();
+        public List<MaterialItemDTO> Loot { get; set; } = new List<MaterialItemDTO>();
     }
 }

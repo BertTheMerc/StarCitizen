@@ -36,8 +36,8 @@ api.MapGet("loot", async (PiStarApiClient client, CancellationToken ct) =>
 
     return items.Select(item => new
     {
-        item.ItemTypeName,
-        item.SubItemTypeName,
+        item.ItemType,
+        item.SubType,
         item.ItemName,
         item.SCUSize,
         item.CargoSaleValue,
@@ -102,15 +102,15 @@ public sealed class PiStarApiClient(HttpClient http)
         return items ?? [];
     }
 
-    public async Task<PiStarDTO.OutpostDTO[]> GetOutpostsAsync(CancellationToken ct)
+    public async Task<PiStarDTO.OutpostItemDTO[]> GetOutpostsAsync(CancellationToken ct)
     {
-        var items = await http.GetFromJsonAsync<PiStarDTO.OutpostDTO[]>("api/outposts", ct);
+        var items = await http.GetFromJsonAsync<PiStarDTO.OutpostItemDTO[]>("api/outposts", ct);
         return items ?? [];
     }
 
-    public async Task<PiStarDTO.ComponentItemDTO[]> GetComponentsAsync(CancellationToken ct)
+    public async Task<PiStarDTO.VehicleComponentItemDTO[]> GetComponentsAsync(CancellationToken ct)
     {
-        var items = await http.GetFromJsonAsync<PiStarDTO.ComponentItemDTO[]>("api/components", ct);
+        var items = await http.GetFromJsonAsync<PiStarDTO.VehicleComponentItemDTO[]>("api/vehiclecomponents", ct);
         return items ?? [];
     }
 }

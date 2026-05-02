@@ -7,15 +7,15 @@ from Screens import MultiList
 class ShipComponents(MultiList.MultiList):
     def __init__(self, screen, fonts):
         print ("Ship Components")
-        data_source = Repo.Repo.get_all_components()
-        
+
+        repo = Repo.Repo()
+        full_list = repo.get_components()
+        print (len(full_list))
         type_seen = set()
         item_types = []
 
-        for item in data_source:  
-            if item.comp_type not in type_seen:
-                type_seen.add(item.comp_type)
-                item_types.append(item.comp_type)
+        print (full_list[0])
+        item_types = {c.category for c in full_list}
 
         columns = ["Name", "Made by", "Class", "Grade", "Size"]
 
@@ -23,8 +23,8 @@ class ShipComponents(MultiList.MultiList):
         for x in item_types:
             item_sub_types.append(["Civilian","Industrial","Competition","Military","Stealth"])
 
-        super().__init__(screen, "Ship Components", fonts, item_types, item_sub_types, columns, [100, 220, 540, 700, 820])
-        self.data_source = data_source 
+        super().__init__(screen, "Vehicle Components", fonts, item_types, item_sub_types, columns, [100, 220, 540, 700, 820])
+        self.data_source = full_list 
 
     def create(self):
         pass

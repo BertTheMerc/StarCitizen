@@ -1,6 +1,6 @@
 ﻿namespace PiStarDTO
 {
-    public record OutpostDTO
+    public record OutpostItemDTO
     {
         public int Id { get; set; }
 
@@ -26,7 +26,7 @@
         
         public OutpostCategory Category { get; init; }
 
-        public OutpostDTO()
+        public OutpostItemDTO()
         {
             Category = new OutpostCategory(this.SystemName, this.SubSystemName);
         }       

@@ -7,11 +7,13 @@ from Screens import ScreenTemplate
 class TradeRoutes(ScreenTemplate.Screen_Template):
     def __init__(self, screen, fonts):
         super().__init__(screen, "TRADE ROUTES", fonts)
-        self.routes = []
+        repo = Repo.Repo()
+        self.routes = repo.get_trade_routes() 
         self.cols = [90, 400, 700, 800, 870]
         self.source_y = 130
         self.header_y = 110
-        self.sources = Repo.Repo.get_trade_route_sources() 
+        
+        self.sources = {r.starting for r in  self.routes}
         print (len(self.sources))
         self.sourceIdx = 0
         self.units = 0

@@ -30,7 +30,9 @@ class LootPrices(MultiList.MultiList):
         self.cols = [100, 600, 700, 800, 900]
         self.source_y = 110
         self.header_y = 100
-        self.loot = Repo.Repo.get_loot_resale_prices() 
+
+        repo = Repo.Repo()
+        self.loot = repo.get_loot_resale_prices() 
         print (len(self.loot))
         self.page_idx = 0
         self.units = 0

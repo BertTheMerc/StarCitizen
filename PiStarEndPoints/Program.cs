@@ -8,13 +8,7 @@ public partial class Program
     {
         var builder = WebApplication.CreateBuilder();
 
-
-        builder.Services.AddSingleton<Func<SqlConnection>>(_ =>
-        {
-            var connString = Resource.DATABASE_CONNECTION_STRING;
-            return () => new SqlConnection(connString);
-        });
-
+        builder.Services.AddMemoryCache();
         builder.Services.AddFastEndpoints();
 
         var app = builder.Build();

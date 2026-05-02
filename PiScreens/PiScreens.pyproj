@@ -21,13 +21,6 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Domain\Fleet.py" />
-    <Compile Include="Domain\LootResale.py" />
-    <Compile Include="Domain\MultiListBase.py" />
-    <Compile Include="Domain\RepairOutposts.py" />
-    <Compile Include="Domain\ShipComponent.py" />
-    <Compile Include="Domain\ShipDetails.py" />
-    <Compile Include="Domain\TradeRoute.py" />
     <Compile Include="libs\Helper.py" />
     <Compile Include="libs\Repo.py" />
     <Compile Include="libs\SlideShow.py" />
@@ -51,25 +44,6 @@
     <Compile Include="tests\test_fleet.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Database\CreateDB.sql" />
-    <Content Include="Database\CreateLootResale.sql" />
-    <Content Include="Database\CreateOutposts.sql" />
-    <Content Include="Database\CreateShipComponents.sql" />
-    <Content Include="Database\CreateShips.sql" />
-    <Content Include="Database\CreateTradeRoute.sql" />
-    <Content Include="Database\SeedLootResale.sql" />
-    <Content Include="Database\SeedLootResaleTypes.sql" />
-    <Content Include="Database\SeedOutposts.sql" />
-    <Content Include="Database\SeedShipComponents.sql" />
-    <Content Include="Database\SeedShips.sql" />
-    <Content Include="Database\SeedTradeRoutes.sql" />
-    <Content Include="Database\ViewOutposts.sql" />
-    <Content Include="Domain\__pycache__\Fleet.cpython-313.pyc" />
-    <Content Include="Domain\__pycache__\LootResale.cpython-313.pyc" />
-    <Content Include="Domain\__pycache__\RepairOutposts.cpython-313.pyc" />
-    <Content Include="Domain\__pycache__\ShipComponent.cpython-313.pyc" />
-    <Content Include="Domain\__pycache__\ShipDetails.cpython-313.pyc" />
-    <Content Include="Domain\__pycache__\TradeRoute.cpython-313.pyc" />
     <Content Include="images\button.png" />
     <Content Include="images\Frame.pdn" />
     <Content Include="images\Frame.png" />
@@ -88,9 +62,6 @@
     <Content Include="r.cmd" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Database\" />
-    <Folder Include="Domain\" />
-    <Folder Include="Domain\__pycache__\" />
     <Folder Include="images" />
     <Folder Include="libs" />
     <Folder Include="tests\" />

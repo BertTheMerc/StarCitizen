@@ -12,7 +12,7 @@ class Screen_Template:
         self.fonts = fonts
         self.screenIdx = -1
         self.machine_name = socket.gethostname()
-        self.border_width = 53
+        #self.border_width = 53
         self.button_y = [125, 250, 380]
         self.prev_x = 300
         self.next_x = 670
@@ -26,7 +26,7 @@ class Screen_Template:
         self.button_text_offset = 20
         self.list_line_space = 18
         
-        self.frame = pygame.image.load('images//FrameB.png')
+        self.frame = pygame.image.load('images//Frame.png')
         self.button = pygame.image.load('images//buttonb.png')
         print (self.machine_name)
 

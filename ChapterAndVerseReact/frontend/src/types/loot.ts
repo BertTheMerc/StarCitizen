@@ -3,8 +3,8 @@ import { type SortOrder } from '../types/shared'
 export type LootableSortKey = 'itemtype' | 'subitemtype' | 'return' | 'name' | 'sell' | 'size'
 
 export interface LootItem {
-    itemTypeName: string
-    subItemTypeName: string
+    itemType: string
+    subType: string
     itemName: string
     scuSize: number
     cargoSaleValue: number
