@@ -1,6 +1,4 @@
 <Solution>
-  <Project Path="AmpligameInterface/AmpligameInterface.csproj" Id="734b14d6-b643-4a79-8a08-87402bcfa9cf" />
-  <Project Path="ChapterAndVerse/ChapterAndVerse.csproj" />
   <Project Path="ChapterAndVerseReact/ChapterAndVerseReact.AppHost/ChapterAndVerseReact.AppHost.csproj" />
   <Project Path="ChapterAndVerseReact/ChapterAndVerseReact.Server/ChapterAndVerseReact.Server.csproj" />
   <Project Path="ChapterAndVerseReact/frontend/ChapterAndVerseReact.esproj">
@@ -10,9 +8,6 @@
   </Project>
   <Project Path="PiScreens/PiScreens.pyproj" Type="888888a0-9f3d-457c-b088-3a5042f75d52" Id="b21d4d00-3dad-48f8-b0da-9919322cb6e3">
     <Build Project="false" />
-  </Project>
-  <Project Path="PiStarDatabase/PiStarDatabase.sqlproj" Id="dacd9e4b-273f-411a-be31-d1ed92ada85b">
-    <Deploy />
   </Project>
   <Project Path="PiStarDTO/PiStarDTO.csproj" />
   <Project Path="PiStarEndPoints/PiStarEndpoints.csproj" />
