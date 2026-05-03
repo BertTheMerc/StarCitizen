@@ -4,7 +4,7 @@ from Domain import ShipComponent, ShipWeapon
 
 class Repo:
     API_BASE = "http://localhost:5270/api"
-
+    API_BASE_LIVE = "https://starcitizenendpoints-bpfpd7h3acczfzb9.ukwest-01.azurewebsites.net/api"
     def get_pledge_ships(self):
         return self._get_all("ships")
     
@@ -28,7 +28,7 @@ class Repo:
         return self._get_all("loot")
 
     def _get_all(self, source: str):
-        url = f"{self.API_BASE}/{source}"
+        url = f"{self.API_BASE_LIVE}/{source}"
         resp = requests.get(url, timeout=15)
         resp.raise_for_status()
         return resp.json()

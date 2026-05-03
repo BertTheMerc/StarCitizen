@@ -19,6 +19,7 @@
     <Content Remove="Data\Outposts.json" />
     <Content Remove="Data\VechicleWeapons.json" />
     <Content Remove="Data\VehicleComponents.json" />
+    <Content Remove="Data\Vehicles.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,11 +34,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Data\VechicleWeapons.json" />
-    <None Include="Data\materials.json" />
-    <None Include="Data\outposts.json" />
-    <None Include="Data\loot.json" />
-    <None Include="Data\VehicleComponents.json" />
+    <Resource Include="Data\VechicleWeapons.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Data\loot.json" />
+    <Resource Include="Data\materials.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Data\outposts.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Data\VehicleComponents.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Data\Vehicles.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
