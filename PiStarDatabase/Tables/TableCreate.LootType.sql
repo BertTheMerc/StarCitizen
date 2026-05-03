@@ -1,5 +1,0 @@
-﻿CREATE TABLE [dbo].[LootType]
-(
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
-	ItemTypeName VARCHAR(40)
-)
