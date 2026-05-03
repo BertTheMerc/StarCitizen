@@ -38,16 +38,17 @@ jobs:
           name: .net-app
           path: ./publish
 
-  deploy:
+ deploy:
     runs-on: windows-latest
     needs: build
-    
+
     steps:
-      - name: Download artifact from build job
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: .net-app
-      
+          path: ./publish
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
