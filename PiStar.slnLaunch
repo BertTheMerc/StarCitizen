@@ -3,11 +3,6 @@
     "Name": "React",
     "Projects": [
       {
-        "Path": "PiStarEndPoints\\PiStarEndpoints.csproj",
-        "Action": "Start",
-        "DebugTarget": "https"
-      },
-      {
         "Path": "ChapterAndVerseReact\\ChapterAndVerseReact.AppHost\\ChapterAndVerseReact.AppHost.csproj",
         "Action": "Start"
       }

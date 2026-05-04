@@ -22,7 +22,7 @@ export default function LootablesPage() {
             try {
                 setLoading(true)
                 setError(null)
-                const response = await fetch('/api/loot')
+                const response = await fetch('https://starcitizenendpoints-bpfpd7h3acczfzb9.ukwest-01.azurewebsites.net/api/loot')
                 if (!response.ok) {
                     throw new Error(`Unable to load loot list (${response.status})`)
                 }

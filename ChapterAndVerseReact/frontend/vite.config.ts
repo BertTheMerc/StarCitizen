@@ -4,13 +4,18 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    proxy: {
-      // Proxy API calls to the app service
-      '/api': {
-        target: process.env.SERVER_HTTPS || process.env.SERVER_HTTP,
-        changeOrigin: true
-      }
+    server: {
+        port: Number(process.env.PORT) || 5173,
+        strictPort: true,
+
+        proxy: {
+        // Proxy API calls to the app service
+            '/api': {
+            target: 'https://starcitizenendpoints-bpfpd7h3acczfzb9.ukwest-01.azurewebsites.net',
+            //target: process.env.SERVER_HTTPS || process.env.SERVER_HTTP,
+            changeOrigin: true,
+            secure: true
+        }
+        }
     }
-  }
 })

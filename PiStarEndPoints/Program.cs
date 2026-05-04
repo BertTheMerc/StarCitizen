@@ -1,6 +1,5 @@
 using FastEndpoints;
 using PiStarEndpoints;
-using PiStarEndpoints.Properties;
 
 public partial class Program
 {
