@@ -6,7 +6,6 @@ var server = builder.AddProject<Projects.ChapterAndVerseReact_Server>("server")
 
 var webfrontend = builder.AddViteApp("webfrontend", "../frontend")
     .WithEnvironment("PORT", "5173")
-    .WithExternalHttpEndpoints()
     .WithReference(server)
     .WaitFor(server);
 
