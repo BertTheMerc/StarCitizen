@@ -8,13 +8,15 @@ namespace PiStarEndpoints.VehicleComponents.Endpoints
 {
     public class Get : Endpoint<EmptyRequest, List<VehicleComponentItemDTO>>
     {
-        private const string CacheKey = "components:list";
-        private const string JsonFileName = "vehiclecomponents.json";
+        private readonly BlobService _blobService;
+
+        private const string cacheKey = "components:list";
+        private const string fileName = "vehiclecomponents.json";
 
         private readonly IMemoryCache _cache;
         private readonly IWebHostEnvironment _environment;
 
-        public Get(IMemoryCache cache, IWebHostEnvironment environment)
+        public Get(IMemoryCache cache, IWebHostEnvironment environment, BlobService blobService)
         {
             _cache = cache;
             _environment = environment;
@@ -34,21 +36,12 @@ namespace PiStarEndpoints.VehicleComponents.Endpoints
 
         private async Task<List<VehicleComponentItemDTO>> GetComponentsAsync(CancellationToken ct)
         {
-            return await _cache.GetOrCreateAsync(CacheKey, async entry =>
+            return await _cache.GetOrCreateAsync(cacheKey, async entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
 
-                var filePath = Path.Combine(
-                    _environment.ContentRootPath,
-                    "Data",
-                    JsonFileName);
+                var stream = await _blobService.ReadBlobStreamAsync(fileName);
 
-                if (!File.Exists(filePath))
-                {
-                    throw new FileNotFoundException($"Component data file was not found: {filePath}", filePath);
-                }
-
-                await using var stream = File.OpenRead(filePath);
                 try
                 {
                     var components = await JsonSerializer.DeserializeAsync<List<VehicleComponentItemDTO>>(
@@ -63,11 +56,11 @@ namespace PiStarEndpoints.VehicleComponents.Endpoints
                 }
                 catch (JsonException ex)
                 {
-                    throw new InvalidDataException($"Failed to deserialize Component data from file: {filePath}", ex);
+                    throw new InvalidDataException($"Failed to deserialize Component data from file: {fileName}", ex);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error while reading the Component data file: {filePath}", ex);
+                    throw new Exception($"Error while reading the Component data file: {fileName}", ex);
                 }
             }) ?? new List<VehicleComponentItemDTO>();
         }

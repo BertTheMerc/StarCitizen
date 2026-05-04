@@ -43,19 +43,7 @@ namespace PiStarEndpoints.Loot.Endpoints
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
 
                 var stream = await _blobService.ReadBlobStreamAsync(fileName);
-
-                /*var filePath = Path.Combine(
-                    _environment.ContentRootPath,
-                    "Data",
-                    fileName);
-
-                if (!File.Exists(filePath))
-                {
-                    throw new FileNotFoundException($"Loot data file was not found: {filePath}", filePath);
-                }
-
-                await using var stream = File.OpenRead(filePath);
-                */
+                
                 try
                 {
                     var loot = await JsonSerializer.DeserializeAsync<List<LootItemDTO>>(

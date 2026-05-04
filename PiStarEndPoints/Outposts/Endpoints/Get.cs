@@ -8,16 +8,19 @@ namespace PiStarEndpoints.Outpost.Endpoints
 {
     public class GetOutpostEndpoint : Endpoint<EmptyRequest, List<OutpostItemDTO>>
     {
-        private const string CacheKey = "Outposts:list";
-        private const string JsonFileName = "outposts.json";
+        private readonly BlobService _blobService;
+
+        private const string cacheKey = "Outposts:list";
+        private const string fileName = "outposts.json";
 
         private readonly IMemoryCache _cache;
         private readonly IWebHostEnvironment _environment;
 
-        public GetOutpostEndpoint(IMemoryCache cache, IWebHostEnvironment environment)
+        public GetOutpostEndpoint(IMemoryCache cache, IWebHostEnvironment environment, BlobService blobService)
         {
             _cache = cache;
             _environment = environment;
+            _blobService = blobService;
         }
 
         public override void Configure()
@@ -34,21 +37,11 @@ namespace PiStarEndpoints.Outpost.Endpoints
 
         private async Task<List<OutpostItemDTO>> GetOutpostAsync(CancellationToken ct)
         {
-            return await _cache.GetOrCreateAsync(CacheKey, async entry =>
+            return await _cache.GetOrCreateAsync(cacheKey, async entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
 
-                var filePath = Path.Combine(
-                    _environment.ContentRootPath,
-                    "Data",
-                    JsonFileName);
-
-                if (!File.Exists(filePath))
-                {
-                    throw new FileNotFoundException($"Outpost data file was not found: {filePath}", filePath);
-                }
-
-                await using var stream = File.OpenRead(filePath);
+                var stream = await _blobService.ReadBlobStreamAsync(fileName);
 
                 try
                 {
@@ -64,11 +57,11 @@ namespace PiStarEndpoints.Outpost.Endpoints
                 }
                 catch (JsonException ex)
                 {
-                    throw new InvalidDataException($"Failed to deserialize Outpost data from file: {filePath}", ex);
+                    throw new InvalidDataException($"Failed to deserialize Outpost data from file: {fileName}", ex);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error while reading the Outpost data file: {filePath}", ex);
+                    throw new Exception($"Error while reading the Outpost data file: {fileName}", ex);
                 }
             }) ?? new List<OutpostItemDTO>();
         }

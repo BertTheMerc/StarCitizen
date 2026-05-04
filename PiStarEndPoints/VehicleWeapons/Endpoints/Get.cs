@@ -8,16 +8,19 @@ namespace PiStarEndpoints.VehicleWeapons.Endpoints
 {
     public class Get : Endpoint<EmptyRequest, List<VehicleWeaponItemDTO>>
     {
-        private const string CacheKey = "components:list";
-        private const string JsonFileName = "vehiclecomponents.json";
+        private readonly BlobService _blobService;
+
+        private const string cacheKey = "components:list";
+        private const string fileName = "vehiclecomponents.json";
 
         private readonly IMemoryCache _cache;
         private readonly IWebHostEnvironment _environment;
 
-        public Get(IMemoryCache cache, IWebHostEnvironment environment)
+        public Get(IMemoryCache cache, IWebHostEnvironment environment, BlobService blobService)
         {
             _cache = cache;
             _environment = environment;
+            _blobService = blobService;
         }
 
         public override void Configure()
@@ -34,21 +37,11 @@ namespace PiStarEndpoints.VehicleWeapons.Endpoints
 
         private async Task<List<VehicleWeaponItemDTO>> GetComponentsAsync(CancellationToken ct)
         {
-            return await _cache.GetOrCreateAsync(CacheKey, async entry =>
+            return await _cache.GetOrCreateAsync(cacheKey, async entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
 
-                var filePath = Path.Combine(
-                    _environment.ContentRootPath,
-                    "Data",
-                    JsonFileName);
-
-                if (!File.Exists(filePath))
-                {
-                    throw new FileNotFoundException($"vehicle weapon data file was not found: {filePath}", filePath);
-                }
-
-                await using var stream = File.OpenRead(filePath);
+                var stream = await _blobService.ReadBlobStreamAsync(fileName);
                 try
                 {
                     var components = await JsonSerializer.DeserializeAsync<List<VehicleWeaponItemDTO>>(
@@ -63,11 +56,11 @@ namespace PiStarEndpoints.VehicleWeapons.Endpoints
                 }
                 catch (JsonException ex)
                 {
-                    throw new InvalidDataException($"Failed to deserialize vehicle weapon data from file: {filePath}", ex);
+                    throw new InvalidDataException($"Failed to deserialize vehicle weapon data from file: {fileName}", ex);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error while reading the vehicle weapon data file: {filePath}", ex);
+                    throw new Exception($"Error while reading the vehicle weapon data file: {fileName}", ex);
                 }
             }) ?? new List<VehicleWeaponItemDTO>();
         }

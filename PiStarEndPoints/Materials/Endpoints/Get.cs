@@ -8,13 +8,15 @@ namespace PiStarEndpoints.Material.Endpoints
 {
     public class GetMaterialEndpoint : Endpoint<EmptyRequest, List<MaterialItemDTO>>
     {
-        private const string MaterialCacheKey = "Materials:list";
-        private const string MaterialJsonFileName = "Materials.json";
+        private readonly BlobService _blobService;
+
+        private const string cacheKey = "Materials:list";
+        private const string fileName = "Materials.json";
 
         private readonly IMemoryCache _cache;
         private readonly IWebHostEnvironment _environment;
 
-        public GetMaterialEndpoint(IMemoryCache cache, IWebHostEnvironment environment)
+        public GetMaterialEndpoint(IMemoryCache cache, IWebHostEnvironment environment, BlobService blobService)
         {
             _cache = cache;
             _environment = environment;
@@ -34,21 +36,11 @@ namespace PiStarEndpoints.Material.Endpoints
 
         private async Task<List<MaterialItemDTO>> GetMaterialAsync(CancellationToken ct)
         {
-            return await _cache.GetOrCreateAsync(MaterialCacheKey, async entry =>
+            return await _cache.GetOrCreateAsync(cacheKey, async entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
 
-                var filePath = Path.Combine(
-                    _environment.ContentRootPath,
-                    "Data",
-                    MaterialJsonFileName);
-
-                if (!File.Exists(filePath))
-                {
-                    throw new FileNotFoundException($"Material data file was not found: {filePath}", filePath);
-                }
-
-                await using var stream = File.OpenRead(filePath);
+                var stream = await _blobService.ReadBlobStreamAsync(fileName);
                 try { 
                     var Material = await JsonSerializer.DeserializeAsync<List<MaterialItemDTO>>(
                         stream,
@@ -62,11 +54,11 @@ namespace PiStarEndpoints.Material.Endpoints
                 }
                 catch (JsonException ex)
                 {
-                    throw new InvalidDataException($"Failed to deserialize Material data from file: {filePath}", ex);
+                    throw new InvalidDataException($"Failed to deserialize Material data from file: {fileName}", ex);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error while reading the Material data file: {filePath}", ex);
+                    throw new Exception($"Error while reading the Material data file: {fileName}", ex);
                 }
             }) ?? new List<MaterialItemDTO>();
         }

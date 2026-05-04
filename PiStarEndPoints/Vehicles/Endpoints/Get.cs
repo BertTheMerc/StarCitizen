@@ -8,16 +8,19 @@ namespace PiStarEndpoints.Vehicle.Endpoints
 {
     public class GetVehiclesEndpoint : Endpoint<EmptyRequest, List<VehicleItemDTO>>
     {
-        private const string CacheKey = "vehicles:list";
-        private const string JsonFileName = "vehicles.json";
+        private readonly BlobService _blobService;
+
+        private const string cacheKey = "vehicles:list";
+        private const string fileName = "vehicles.json";
 
         private readonly IMemoryCache _cache;
         private readonly IWebHostEnvironment _environment;
 
-        public GetVehiclesEndpoint(IMemoryCache cache, IWebHostEnvironment environment)
+        public GetVehiclesEndpoint(IMemoryCache cache, IWebHostEnvironment environment, BlobService blobService)
         {
             _cache = cache;
             _environment = environment;
+            _blobService = blobService;
         }
 
         public override void Configure()
@@ -34,21 +37,11 @@ namespace PiStarEndpoints.Vehicle.Endpoints
 
         private async Task<List<VehicleItemDTO>> GetDataAsync(CancellationToken ct)
         {
-            return await _cache.GetOrCreateAsync(CacheKey, async entry =>
+            return await _cache.GetOrCreateAsync(cacheKey, async entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
-
-                var filePath = Path.Combine(
-                    _environment.ContentRootPath,
-                    "Data",
-                    JsonFileName);
-
-                if (!File.Exists(filePath))
-                {
-                    throw new FileNotFoundException($"Vehicle data file was not found: {filePath}", filePath);
-                }
-
-                await using var stream = File.OpenRead(filePath);
+                
+                var stream = await _blobService.ReadBlobStreamAsync(fileName);
 
                 try
                 {
@@ -64,11 +57,11 @@ namespace PiStarEndpoints.Vehicle.Endpoints
                 }
                 catch (JsonException ex)
                 {
-                    throw new InvalidDataException($"Failed to deserialize vehicles data from file: {filePath}", ex);
+                    throw new InvalidDataException($"Failed to deserialize vehicles data from file: {fileName}", ex);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error while reading the vehicles data file: {filePath}", ex);
+                    throw new Exception($"Error while reading the vehicles data file: {fileName}", ex);
                 }
                 
             }) ?? new List<VehicleItemDTO>();
