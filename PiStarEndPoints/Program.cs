@@ -1,5 +1,5 @@
 using FastEndpoints;
-using Microsoft.Data.SqlClient;
+using PiStarEndpoints;
 using PiStarEndpoints.Properties;
 
 public partial class Program
@@ -10,6 +10,7 @@ public partial class Program
 
         builder.Services.AddMemoryCache();
         builder.Services.AddFastEndpoints();
+        builder.Services.AddSingleton<BlobService>();
 
         var app = builder.Build();
         app.UseFastEndpoints();

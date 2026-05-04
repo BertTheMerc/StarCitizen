@@ -8,16 +8,20 @@ namespace PiStarEndpoints.Loot.Endpoints
 {
     public class GetLootEndpoint : Endpoint<EmptyRequest, List<LootItemDTO>>
     {
+        private readonly BlobService _blobService;
+
+
         private const string LootCacheKey = "loot:list";
-        private const string LootJsonFileName = "loot.json";
+        private const string fileName = "loot.json";
 
         private readonly IMemoryCache _cache;
         private readonly IWebHostEnvironment _environment;
 
-        public GetLootEndpoint(IMemoryCache cache, IWebHostEnvironment environment)
+        public GetLootEndpoint(IMemoryCache cache, IWebHostEnvironment environment, BlobService blobService)
         {
             _cache = cache;
             _environment = environment;
+            _blobService = blobService;
         }
 
         public override void Configure()
@@ -38,10 +42,12 @@ namespace PiStarEndpoints.Loot.Endpoints
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
 
-                var filePath = Path.Combine(
+                var stream = await _blobService.ReadBlobStreamAsync(fileName);
+
+                /*var filePath = Path.Combine(
                     _environment.ContentRootPath,
                     "Data",
-                    LootJsonFileName);
+                    fileName);
 
                 if (!File.Exists(filePath))
                 {
@@ -49,7 +55,7 @@ namespace PiStarEndpoints.Loot.Endpoints
                 }
 
                 await using var stream = File.OpenRead(filePath);
-
+                */
                 try
                 {
                     var loot = await JsonSerializer.DeserializeAsync<List<LootItemDTO>>(
@@ -64,11 +70,11 @@ namespace PiStarEndpoints.Loot.Endpoints
                 }
                 catch (JsonException ex)
                 {
-                    throw new InvalidDataException($"Failed to deserialize loot data from file: {filePath}", ex);
+                    throw new InvalidDataException($"Failed to deserialize loot data from file: {fileName}", ex);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error while reading the loot data file: {filePath}", ex);
+                    throw new Exception($"Error while reading the loot data file: {fileName}", ex);
                 }
                 
             }) ?? new List<LootItemDTO>();
