@@ -15,7 +15,20 @@ builder.Services.AddHttpClient<PiStarApiClient>(client =>
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReactLocalhost", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+
 var app = builder.Build();
+
+app.UseCors("ReactLocalhost");
 
 // Configure the HTTP request pipeline.
 app.UseExceptionHandler();
