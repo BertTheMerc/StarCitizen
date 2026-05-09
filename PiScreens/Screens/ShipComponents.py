@@ -9,7 +9,7 @@ class ShipComponents(MultiList.MultiList):
         print ("Ship Components")
 
         repo = Repo.Repo()
-        full_list = repo.get_components()
+        full_list = repo.get_vehicle_components()
         print (len(full_list))
         type_seen = set()
         item_types = []

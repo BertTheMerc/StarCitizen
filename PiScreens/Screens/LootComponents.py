@@ -15,7 +15,7 @@ class LootComponents(ScreenTemplate.Screen_Template):
         self.mil_class = True 
 
         repo = Repo.Repo()
-        self.components = repo.get_components()
+        self.components = repo.get_loot_resale_prices()
 
     def create(self):
         pass

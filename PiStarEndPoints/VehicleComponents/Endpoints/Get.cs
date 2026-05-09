@@ -40,10 +40,10 @@ namespace PiStarEndpoints.VehicleComponents.Endpoints
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
 
-                var stream = await _blobService.ReadBlobStreamAsync(fileName);
-
                 try
                 {
+                    var stream = await _blobService.ReadBlobStreamAsync(fileName);
+
                     var components = await JsonSerializer.DeserializeAsync<List<VehicleComponentItemDTO>>(
                         stream,
                         new JsonSerializerOptions
@@ -60,7 +60,7 @@ namespace PiStarEndpoints.VehicleComponents.Endpoints
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Error while reading the Component data file: {fileName}", ex);
+                    throw new Exception($"Error while reading the data file: {fileName}", ex);
                 }
             }) ?? new List<VehicleComponentItemDTO>();
         }

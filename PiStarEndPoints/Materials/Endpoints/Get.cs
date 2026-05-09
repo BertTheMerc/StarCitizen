@@ -11,7 +11,7 @@ namespace PiStarEndpoints.Material.Endpoints
         private readonly BlobService _blobService;
 
         private const string cacheKey = "Materials:list";
-        private const string fileName = "Materials.json";
+        private const string fileName = "materials.json";
 
         private readonly IMemoryCache _cache;
         private readonly IWebHostEnvironment _environment;
