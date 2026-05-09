@@ -10,7 +10,7 @@ namespace PiStarEndpoints.VehicleWeapons.Endpoints
     {
         private readonly BlobService _blobService;
 
-        private const string cacheKey = "components:list";
+        private const string cacheKey = "weapons:list";
         private const string fileName = "vehicleweapons.json";
 
         private readonly IMemoryCache _cache;

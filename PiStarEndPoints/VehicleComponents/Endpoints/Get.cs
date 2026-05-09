@@ -20,6 +20,7 @@ namespace PiStarEndpoints.VehicleComponents.Endpoints
         {
             _cache = cache;
             _environment = environment;
+            _blobService = blobService;
         }
 
         public override void Configure()
