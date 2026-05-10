@@ -21,7 +21,7 @@ class ClaimTimers(ScreenTemplate.Screen_Template):
     def create(self):
         repo = Repo.Repo()
         for ship in repo.get_pledge_ships():
-            print ("Adding: " + ship.name)
+            print ("Adding: " + ship.vehicleName)
             self.fleet.add(ship)
 
     def perform_action(self):

@@ -9,12 +9,12 @@ class MultiList(ScreenTemplate.Screen_Template):
     def __init__(self, screen, title, fonts, list_types, sub_list_types, columns_names, column_position):
         super().__init__(screen, title, fonts)
     
-        self.item_types = list_types
-        self.sub_item_types = sub_list_types
+        self.itemTypes = list_types
+        self.subTypes = sub_list_types
         self.columns = columns_names
         self.data_source = None
-        self.selected_type = 0
-        self.selected_sub_item_type = 0
+        self.selectedType = 0
+        self.selectedSubType = 0
         self.cols = column_position
         self.source_y = 110
         self.header_y = 100
@@ -38,12 +38,12 @@ class MultiList(ScreenTemplate.Screen_Template):
     def show_items(self):
         i = 0
         l = 0
-        for item in self.item_types:
+        for item in self.itemTypes:
             l += Helper.text_width(self.fonts["M"], item)[0] + 10
         
         x = 512 - l/2
-        for item in self.item_types:
-            if i == self.selected_type:
+        for item in self.itemTypes:
+            if i == self.selectedType:
                 colour = self.text_colour
             else:
                 colour = self.shadow_color
@@ -55,12 +55,12 @@ class MultiList(ScreenTemplate.Screen_Template):
         
         i = 0
         l = 0
-        for sub_item in self.sub_item_types[self.selected_type]:
+        for sub_item in self.subTypes[self.selectedType]:
             l += Helper.text_width(self.fonts["M"], sub_item)[0] + 10
         
         x = 512 - l/2
-        for sub_item in self.sub_item_types[self.selected_type]:
-            if i == self.selected_sub_item_type:
+        for sub_item in self.subTypes[self.selectedType]:
+            if i == self.selectedSubType:
                 colour = self.text_colour
             else:
                 colour = self.shadow_color
@@ -75,7 +75,7 @@ class MultiList(ScreenTemplate.Screen_Template):
 
         for item in self.data_source:
             if idx >= self.page_idx * self.items_per_page and y < 480:
-                if (item.item_type==self.item_types[self.selected_type] and item.sub_item_type==self.sub_item_types[item.sub_item_type][self.selected_sub_item_type]) or (item.item_type==self.selected_type and item.sub_item_type==self.selected_sub_item_type):
+                if (item.itemType==self.itemTypes[self.selectedType] and item.subType==self.subTypes[item.subType][self.selectedSubType]) or (item.itemType==self.selectedType and item.subType==self.selectedSubType):
                     c = 0
                     for col in self.columns:
                         Helper.render_text(self.screen, self.fonts["M"], self.text_colour, (str)(item.column(c)), self.cols[c], y)
@@ -92,27 +92,27 @@ class MultiList(ScreenTemplate.Screen_Template):
         
 
     def action1(self):
-        self.selected_type += 1
-        if self.selected_type >= len(self.item_types):
-            self.selected_type = 0
+        self.selectedType += 1
+        if self.selectedType >= len(self.itemTypes):
+            self.selectedType = 0
 
-        self.selected_sub_item_type = 0
+        self.selectedSubType = 0
 
     def action2(self):
         pass
 
     def action3(self):
-        self.selected_type -= 1
-        if self.selected_type < 0:
-           self.selected_type = len(self.item_types)-1
+        self.selectedType -= 1
+        if self.selectedType < 0:
+           self.selectedType = len(self.itemTypes)-1
 
-        self.selected_sub_item_type = 0
+        self.selectedSubType = 0
 
     def adjust1(self):
-        self.selected_sub_item_type += 1
+        self.selectedSubType += 1
 
-        if self.selected_sub_item_type > len(self.sub_item_types[self.selected_type])-1:
-            self.selected_sub_item_type = 0
+        if self.selectedSubType > len(self.subTypes[self.selectedType])-1:
+            self.selectedSubType = 0
 
         self.page_idx = 0
 
@@ -120,9 +120,9 @@ class MultiList(ScreenTemplate.Screen_Template):
         self.page_idx += 1
 
     def adjust3(self):
-        self.selected_sub_item_type -= 1
-        if self.selected_sub_item_type < 0:
-            self.selected_sub_item_type = len(self.sub_item_types[self.selected_type])-1
+        self.selectedSubType -= 1
+        if self.selectedSubType < 0:
+            self.selectedSubType = len(self.subTypes[self.selectedType])-1
         
         self.page_idx = 0
 

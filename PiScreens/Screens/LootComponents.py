@@ -5,7 +5,6 @@ from Screens import ScreenTemplate
 class LootComponents(ScreenTemplate.Screen_Template):
     def __init__(self, screen, fonts):
         super().__init__(screen, "Wanted Components", fonts)
-        self.components = []
         self.cols = [75, 300, 550, 750, 850, 950]
         self.loot_cols = [75, 550]
         self.source_y = 90
@@ -15,7 +14,7 @@ class LootComponents(ScreenTemplate.Screen_Template):
         self.mil_class = True 
 
         repo = Repo.Repo()
-        self.components = repo.get_loot_resale_prices()
+        self.components = repo.get_vehicle_components()
 
     def create(self):
         pass
@@ -38,15 +37,15 @@ class LootComponents(ScreenTemplate.Screen_Template):
             Helper.render_text(self.screen, self.fonts["L"], self.text_colour, "Stealth", self.loot_cols[0], 60)
             
         for item in self.components:           
-            if (item.cclass == "Military" and self.mil_class) or (item.cclass != "Military" and self.mil_class == False): 
+            if (item.compClass == "Military" and self.mil_class) or (item.compClass != "Military" and self.mil_class == False): 
                 if idx >= self.page_index * self.items_per_page:
                     if first:
-                        Helper.render_text(self.screen, self.fonts["M"], self.text_colour, item.comp_type + " | " + item.name + " | " + item.grade +" | " + str(item.size), self.loot_cols[0], y)
+                        Helper.render_text(self.screen, self.fonts["M"], self.text_colour, item.category + " | " + item.name + " | " + item.grade +" | " + str(item.size), self.loot_cols[0], y)
                         first = False
                         y -= 30
                         idx -= 1
                     else:
-                        Helper.render_text(self.screen, self.fonts["M"], self.text_colour, item.comp_type + " | " + item.name + " | " + item.grade +" | " + str(item.size), self.loot_cols[1], y)
+                        Helper.render_text(self.screen, self.fonts["M"], self.text_colour, item.category + " | " + item.name + " | " + item.grade +" | " + str(item.size), self.loot_cols[1], y)
                         first = True
 
                     y += 30

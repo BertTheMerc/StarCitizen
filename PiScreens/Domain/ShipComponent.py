@@ -9,6 +9,8 @@ class ShipComponent(MultiListBase.Base):
     name: str
     man: str
     manCode: str
+    itemType: str
+    subType: str
     size: int
     compClass: str
     grade: str
@@ -27,6 +29,8 @@ class ShipComponent(MultiListBase.Base):
             id = data["componentId"],
             name = data["componentName"],
             man = data["manufacturerName"],
+            itemType="",
+            subType="",
             manCode = data["manufacturerCode"],
             size = data["sizeOfComponent"],
             compClass= data["class"],

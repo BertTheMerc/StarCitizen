@@ -40,8 +40,8 @@ class Timer:
             self._timer.start()
 
     def refresh(self, ship):
-        self._duration_a = ship.expedite
-        self._duration_b = ship.claim
+        self._duration_a = ship.expediteTimeInSeconds
+        self._duration_b = ship.claimTimeInSeconds
         self._remaining_a = self._duration_a
         self._remaining_b = self._duration_b
         self._schedule_tick()

@@ -8,7 +8,7 @@ class TradeRoutes(ScreenTemplate.Screen_Template):
     def __init__(self, screen, fonts):
         super().__init__(screen, "TRADE ROUTES", fonts)
         repo = Repo.Repo()
-        self.routes = repo.get_trade_routes() 
+        self.routes = [] #repo.get_trade_routes() 
         self.cols = [90, 400, 700, 800, 870]
         self.source_y = 130
         self.header_y = 110

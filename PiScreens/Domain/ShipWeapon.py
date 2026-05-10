@@ -13,7 +13,6 @@ class ShipWeapon(MultiListBase.Base):
     
     @staticmethod
     def from_json(data):
-        print (data)
         return ShipWeapon(
             name = data["componentName"],
             id = data["id"],

@@ -4,11 +4,7 @@
     {
         public int Id { get; set; }
 
-        public int SystemNameId { get; set; }
-
         public string SystemName { get; set; } = string.Empty;
-        
-        public int SubSystemNameId { get; set; }
 
         public string SubSystemName { get; set; } = string.Empty;
 

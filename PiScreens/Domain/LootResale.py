@@ -1,18 +1,34 @@
-from re import A
+from dataclasses import dataclass
 from typing import List, Optional
 from Domain import MultiListBase
 
+@dataclass
 class LootResale(MultiListBase.Base):
-    def __init__(self, name: str, item_type: int, sub_item_type: int, size: float, cargo_sale: int):
-        self.id = 0
-        self.name = name
-        self.item_type = item_type
-        self.sub_item_type = sub_item_type
-        self.size = size
-        self.cargo_sale = cargo_sale
-        self.amount_per_volume = cargo_sale / size
+    id: int
+    name: str
+    itemType: int
+    subType: str
+    name: str
+    size: int
+    cargoSale: int
+    amount_per_volume: int
+        
+    @staticmethod
+    def from_json(data):
+        item = LootResale(
+            id = data["id"],
+            name = data["itemName"],
+            itemType = data["itemType"],
+            subType = data["subType"],
+            size = data["scuSize"],
+            cargoSale = data["cargoSaleValue"],
+            amount_per_volume= 0
+        )
 
-        self.col_0 = self.name
-        self.col_1 = self.size
-        self.col_2 = self.cargo_sale
-        self.col_3 = (int)(self.amount_per_volume)
+        item.amount_per_volume = item.cargoSale / item.size
+
+        return item
+            #self.col_0 = self.name
+            #self.col_1 = self.size
+            #self.col_2 = self.cargo_sale
+            #self.col_3 = (int)(self.amount_per_volume)
