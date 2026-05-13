@@ -21,6 +21,14 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Domain\Fleet.py" />
+    <Compile Include="Domain\LootResale.py" />
+    <Compile Include="Domain\MultiListBase.py" />
+    <Compile Include="Domain\RepairOutposts.py" />
+    <Compile Include="Domain\ShipComponent.py" />
+    <Compile Include="Domain\ShipDetails.py" />
+    <Compile Include="Domain\ShipWeapon.py" />
+    <Compile Include="Domain\TradeRoute.py" />
     <Compile Include="libs\Helper.py" />
     <Compile Include="libs\Repo.py" />
     <Compile Include="libs\SlideShow.py" />
@@ -43,6 +51,14 @@
     <Compile Include="tests\test_fleet.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Domain\__pycache__\Fleet.cpython-313.pyc" />
+    <Content Include="Domain\__pycache__\LootResale.cpython-313.pyc" />
+    <Content Include="Domain\__pycache__\MultiListBase.cpython-313.pyc" />
+    <Content Include="Domain\__pycache__\RepairOutposts.cpython-313.pyc" />
+    <Content Include="Domain\__pycache__\ShipComponent.cpython-313.pyc" />
+    <Content Include="Domain\__pycache__\ShipDetails.cpython-313.pyc" />
+    <Content Include="Domain\__pycache__\ShipWeapon.cpython-313.pyc" />
+    <Content Include="Domain\__pycache__\TradeRoute.cpython-313.pyc" />
     <Content Include="images\button.png" />
     <Content Include="images\Frame.pdn" />
     <Content Include="images\Frame.png" />
@@ -59,8 +75,11 @@
     <Content Include="packages" />
     <Content Include="publish.cmd" />
     <Content Include="r.cmd" />
+    <Content Include="updatesplash.sh" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Domain\" />
+    <Folder Include="Domain\__pycache__\" />
     <Folder Include="images" />
     <Folder Include="libs" />
     <Folder Include="tests\" />

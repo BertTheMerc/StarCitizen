@@ -146,13 +146,13 @@ class PiStarScreenApp(object):
         loot_comps.create()
         self.screens.append(loot_comps)
 
-        comps = ShipComponents.ShipComponents(screen, self.fonts)
-        comps.create()
-        self.screens.append(comps)
+        #comps = ShipComponents.ShipComponents(screen, self.fonts)
+        #comps.create()
+        #self.screens.append(comps)
 
-        outposts = RepairOutposts.RepairOutposts(screen, self.fonts)
-        outposts.create()
-        self.screens.append(outposts)
+        #outposts = RepairOutposts.RepairOutposts(screen, self.fonts)
+        #outposts.create()
+        #self.screens.append(outposts)
 
         clocks = Clocks.Clocks(screen, self.fonts)
         clocks.create()
@@ -162,13 +162,13 @@ class PiStarScreenApp(object):
         else:
             self.screens.append(clocks)
             
-        claim = ClaimTimers.ClaimTimers(screen, self.fonts)
-        claim.create()
-        self.screens.append(claim)
+        #claim = ClaimTimers.ClaimTimers(screen, self.fonts)
+        #claim.create()
+        #self.screens.append(claim)
         
-        trade = TradeRoutes.TradeRoutes(screen, self.fonts)
-        trade.create()
-        self.screens.append(trade)
+        #trade = TradeRoutes.TradeRoutes(screen, self.fonts)
+        #trade.create()
+        #self.screens.append(trade)
 
         #mdf = MFDs.MFD(screen, self.fonts)
         #mdf.create()

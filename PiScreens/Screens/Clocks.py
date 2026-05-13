@@ -97,7 +97,7 @@ class Clocks(ScreenTemplate.Screen_Template):
         offset += 80
         Helper.render_text(self.screen, self.fonts["D"], self.text_colour, super()._date_formatedextension(datetime.datetime.now()), self.timerx, offset)
         offset += 40
-        Helper.render_text(self.screen, self.fonts["D"], self.text_colour, super()._date_formatedextension(datetime.datetime.now().astimezone(pytz.timezone('US/Eastern'))), self.timerx, offset)
+        Helper.render_text(self.screen, self.fonts["D"], self.text_colour, super()._date_formatedextension(datetime.datetime.now().astimezone(pytz.timezone('America/New_York'))), self.timerx, offset)
         offset += 40
         Helper.render_text(self.screen, self.fonts["D"], self.text_colour, super()._date_formatedextension(datetime.datetime.now().astimezone(pytz.timezone('Australia/Brisbane'))), self.timerx, offset)
 
